@@ -35,4 +35,9 @@ Der **Antigravitationsantrieb** ist keine ferne Science-Fiction mehr. Er ist das
 
 **Er kommt in Bälde.**
 
+## Lizenz
+Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for full text.
+
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+
 ---
