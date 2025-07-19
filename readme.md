@@ -205,7 +205,6 @@ Das vorgelegte Dokument skizziert einen hochgradig ambitionierten, aber theoreti
 
 ## Teil 2: NASA Langley Forschungs-Referenzen
 
-```markdown
 # NASA Langley & Breakthrough Propulsion Physics: Relevante Referenzen
 
 Dieses Dokument fasst Schlüsselkonzepte, Berichte und Perspektiven zusammen, die aus dem Umfeld des NASA Langley Research Center und verwandter NASA-Programme stammen und für die Forschung an fortschrittlichen Antriebskonzepten relevant sind.
