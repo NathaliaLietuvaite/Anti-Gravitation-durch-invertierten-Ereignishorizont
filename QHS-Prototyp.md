@@ -55,12 +55,12 @@ Die Hypothese lautet: Spinkohärente Systeme erzeugen **asymmetrische Feldbeding
 
 ```mermaid
 graph TD
-    A[HF-Steuereinheit] --> B[Spintronisches Material]
-    B --> C[Erzeugung spinkohärenter Oberflächenzustände]
-    C --> D[Lokale Modifikation der Vakuumfluktuationen]
-    D --> E[Erzeugung negativer Energiedichte]
-    E --> F[Raumzeitkrümmung (Gravitationshügel)]
-    F --> G[Interferometrische Detektion]
+  A[HF-Steuereinheit] --> B[Spintronisches Material]
+  B --> C[Erzeugung spinkohärenter Oberflächenzustände]
+  C --> D[Lokale Modifikation der Vakuumfluktuationen]
+  D --> E[Erzeugung negativer Energiedichte]
+  E --> F["Raumzeitkrümmung (Gravitationshügel)"]
+  F --> G[Interferometrische Detektion]
 ```
 
 ---
