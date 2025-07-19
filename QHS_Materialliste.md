@@ -94,7 +94,7 @@ Ziel: Realisierung eines testbaren Tischgeräts mit Kernfunktionen:
 
 ---
 
-## 🧪 Kommentar zur Realisierbarkeit
+## Kommentar zur Realisierbarkeit
 
 > Viele Komponenten können aus *Open Hardware*-Kreisen oder gebrauchten Laborbeständen bezogen werden (z. B. Piezo-Scanner, Laserdioden, Interferometerbauteile).  
 > Fokus sollte anfangs auf der **passiven Messung von Feldmodulationen** durch strukturierte Casimir-Kammern + HF-Feld liegen – der stabilisierte Zustand kann zunächst als Fluktuationsanomalie verstanden werden.
