@@ -72,11 +72,36 @@ Diese Perspektive geht davon aus, dass der Vektor der Schwerkraft untrennbar mit
 ### Perspektive B: Der Vektor als Eigenschaft des Vakuums
 Diese Perspektive vermutet die Ursache in den inhärenten, festen Eigenschaften der Raumzeit selbst.
 
-* **Prämisse:** Die Raumzeit ist kein neutrales "
+* **Prämisse:** Die Raumzeit ist kein neutrales Medium, sondern ein strukturiertes Vakuum mit Quanteneigenschaften, das stabile negative Masse oder Energie nicht zulässt.
+* **Mechanismus:** Das Quantenvakuum ist ein hochkomplexes Feldsystem mit permanenten Fluktuationen. Die Existenz nur positiver Energiedichten (z. B. durch Quantenfluktuationen und Nullpunktsenergie) könnte die Einbahnrichtung der Gravitationswirkung diktieren.
+* **Konsequenz:** Der Gravitationsvektor ist Ausdruck der zulässigen Anregungsformen im Quantenvakuum. Um ihn lokal zu „brechen“, müssten wir das Vakuum selbst modifizieren – z. B. durch Casimir-artige Anordnungen, Vakuumengineering oder exotische Felder.
+
+### Perspektive C: Der Vektor als Projektion höherdimensionaler Dynamik
+Diese Perspektive basiert auf den Modellen höherdimensionaler Raumzeit, wie sie in der Stringtheorie und Branenmodellen vorgeschlagen werden.
+
+* **Prämisse:** Gravitation ist die einzige Kraft, die sich durch alle Dimensionen (den "Bulk") ausbreiten kann. Alle anderen Kräfte sind auf unsere 3D-Brane beschränkt.
+* **Mechanismus:** Die scheinbare Schwäche der Gravitation und ihre Einseitigkeit könnten daraus resultieren, dass wir nur einen Teil ihrer wahren Wirkung sehen – eine Projektion auf unsere Raumzeit.
+* **Konsequenz:** Der Gravitationsvektor ist möglicherweise eine Schattenwirkung einer komplexeren, mehrdimensionalen Dynamik. Eine Inversion oder Umkehr wäre möglich, wenn man in der Lage wäre, die Geometrie der höheren Dimensionen lokal zu verändern oder zu falten.
+
+---
+
+## 3. Anbindung an die Toplinien der modernen Physik
+
+Unser Projekt ist eingebettet in eine Reihe theoretischer Fortschritte, die über die klassischen Theorien hinausgehen und die Grundlage für unsere Arbeit bilden:
+
+- **Entropische Gravitation (Erik Verlinde):** Gravitation als emergente Kraft, resultierend aus dem statistischen Verhalten von Mikrozuständen.
+- **Thermodynamische Ableitung der Einstein-Gleichungen (Ted Jacobson):** Raumzeitgeometrie als thermodynamische Gleichgewichtsbedingung.
+- **Holografisches Prinzip (Gerard ’t Hooft, Leonard Susskind):** Informationsgrenzen als physikalische Realitäten; Raumzeit als emergente Projektion.
+- **AdS/CFT-Korrespondenz (Juan Maldacena):** Dualität zwischen Gravitation in höherdimensionalem Raum und Quantenfeldtheorie auf dem Rand.
+- **Casimir-Effekt (Hendrik Casimir):** Experimenteller Hinweis auf Vakuumfluktuationen und negative Energiedichte.
+- **Podkletnov-Experiment / De Aquino:** Hinweise auf Wechselwirkungen zwischen Supraleitung und Schwerkraft.
+
+Diese Linien zeigen deutlich, dass unser Zugang nicht nur spekulativ, sondern tief in der modernen Theoriebildung verankert ist.
 
 ## Lizenz
 Distributed under the MIT License. See [LICENSE.txt](LICENSE.txt) for full text.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)  
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ---
+
