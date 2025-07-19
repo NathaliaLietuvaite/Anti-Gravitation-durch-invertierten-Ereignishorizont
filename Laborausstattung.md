@@ -6,12 +6,12 @@ Ziel: Experimentelle Überprüfung der Hypothese, dass lokal erzeugte negative E
 
 ## 1. **Kernkomponenten für Vakuum- und Temperaturkontrolle**
 
-### 🧊 Kryotechnik
+### Kryotechnik
 - **Flüssigstickstoff-Systeme (77 K)** oder Heliumsysteme (für Supraleitung unter 10 K)
 - Kryostaten mit Vakuumisolierung
 - Temperaturregelung ±0.1 K
 
-### 💨 Vakuumsystem
+### Vakuumsystem
 - Turbomolekularpumpe + Vorvakuumpumpe (Druck < 10⁻⁶ mbar)
 - Vakuumkammer mit Zugang für elektrische/optische Leitungen
 - Residualgasanalysator (RGA), optional
@@ -20,16 +20,16 @@ Ziel: Experimentelle Überprüfung der Hypothese, dass lokal erzeugte negative E
 
 ## 2. **Materialien & Strukturkomponenten**
 
-### 🧲 Supraleiter
+### Supraleiter
 - YBCO (Yttrium-Barium-Kupferoxid) oder BSCCO-Tapes (Bismut-Strontium-Calcium-Kupfer-Oxid)
 - Optional: Hochtemperatur-Supraleiter für einfacheres Handling (77 K statt <10 K)
 
-### 📐 Casimir-Geometrien
+### Casimir-Geometrien
 - Mikrostrukturierte Metallplatten (z. B. Gold, Silizium, Graphen)
 - Abstandskontrolle (Piezoaktoren, nm-Bereich)
 - Mikroresonatoren oder MEMS-Systeme zur Kraftmessung
 
-### 🌀 Spintronic-Komponenten (optional, für erweiterte Experimente)
+### Spintronic-Komponenten (optional, für erweiterte Experimente)
 - Ferromagnetische Dünnfilme (z. B. CoFeB)
 - TMR-/GMR-Sensoren (magnetoresistive Effekte)
 - Frequenzgeneratoren für HF-Feldanregung
@@ -42,17 +42,17 @@ Ziel: Experimentelle Überprüfung der Hypothese, dass lokal erzeugte negative E
 - Torsionswaage mit ng-Auflösung (Cavendish-Design)
 - Kapazitive oder optische Auslesung
 
-### 🎯 Interferometrie
+### Interferometrie
 - Michelson-Interferometer (mit Laser, λ ~ 633 nm)
 - Vibrationstisch (optisch)
 - Autokollimator für Geometrieänderungserkennung
 
-### 🌡️ Temperatur- & Feldsensoren
+### Temperatur- & Feldsensoren
 - PT1000 / Cernox Temperatursensoren
 - Hall-Effekt-Sensoren
 - Magnetfeldmessgerät (Gaussmeter)
 
-### 💻 Datenakquisition
+### Datenakquisition
 - Hochauflösendes DAQ-System (16–24 Bit)
 - Software für Echtzeit-Messung, Logging, Fourier-Analyse
 
@@ -60,15 +60,15 @@ Ziel: Experimentelle Überprüfung der Hypothese, dass lokal erzeugte negative E
 
 ## 4. **Abschirmung & Störfeldkontrolle**
 
-### 🧲 Magnetische Abschirmung
+### Magnetische Abschirmung
 - μ-Metall-Gehäuse
 - Helmholtz-Spulen zur Feldkompensation
 
-### 🕳️ Mechanische Isolation
+### Mechanische Isolation
 - Schwingungsentkoppelter Tisch (optisch oder pneumatisch)
 - Akustische Dämmung (Box-in-Box-Prinzip optional)
 
-### ⚡ Elektrische Abschirmung
+### Elektrische Abschirmung
 - Faradayscher Käfig
 - EMV-konforme Leitungen, galvanisch getrennte Messkanäle
 
