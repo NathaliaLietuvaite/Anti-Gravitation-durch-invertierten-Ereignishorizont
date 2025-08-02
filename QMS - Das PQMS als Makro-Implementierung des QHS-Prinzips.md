@@ -134,3 +134,132 @@ Globaler Quantenzustands-Pool als perfektes Angriffsziel für Dekohärenz-Attack
   Physikalische Isolation kritischer Zustandsblöcke  
 
 > **Zusammenfassung**: Dies ist keine Evolution, sondern eine **Revolution der Infrastruktur**. Wir bauen nicht nur ein Netzwerk – wir errichten das **Rückgrat einer quantenbasierten Zivilisation**.
+
+# Terrestrisches "Eddington-Experiment": Proof-of-Concept für deterministische Quantenkommunikation
+
+**Stand: 02. August 2025**
+
+---
+
+## 1. Experimenteller Aufbau im Detail
+
+### Kernkomponenten
+
+```mermaid
+graph LR
+    subgraph Labor_A[Alice - Sender]
+        A1[Pump-Laser 405nm] --> A2[SPDC Quelle]
+        A2 -->|Photon A| A3[EOM Modulator]
+        A4[FPGA Steuerung] --> A3
+    end
+
+    subgraph Übertragung
+        A2 -->|Photon B| F[50-100 km Glasfaser]
+    end
+
+    subgraph Labor_B[Bob - Empfänger]
+        F --> B1[SNSPD Array]
+        B1 --> B2[TDC & FPGA]
+    end
+
+    subgraph Sync[System-Synchronisation]
+        S[GPS/White Rabbit] --> A4
+        S --> B2
+    end
+```
+
+### Technische Spezifikationen
+
+| Komponente | Modell | Parameter | Kritische Funktion |
+| :--- | :--- | :--- | :--- |
+| **SPDC-Quelle** | BBO-Kristall | Bell-Zustand |Ψ⁻⟩ , λ=1550nm | Erzeugung verschränkter Paare |
+| **EOM-Modulator** | LiNbO₃-basiert | Schaltzeit <100ps | Präparation des Helfer-Kanals |
+| **SNSPD-Array** | WS₂-Nanodrähte | η>90%, Jitter<100ps | Einzelphotonendetektion |
+| **Synchronisation**| White Rabbit | Präzision <1ns | Korrelationszuordnung |
+
+---
+
+## 2. Experimentelles Protokoll
+
+### Schrittfolge
+
+1.  **Initialisierung:**
+    * Kalibrierung der SPDC-Quelle (Visibilität >98%)
+    * Synchronisation der FPGA-Clocks (±0.3ns)
+2.  **Verschränkungsgenerierung**
+
+### Messmetriken
+
+| Kennwert | Zielwert | Bedeutung |
+| :--- | :--- | :--- |
+| **QBER** | <2% | Quanten-Bitfehlerrate |
+| **Effizienz** | >90% | Übertragene Bits/gesendete Bits |
+| **Dekohärenzrate**| <10⁻³/km | Polarisationserhaltung |
+
+---
+
+## 3. Integration in PQMS/QHS-Architektur
+
+### Validierung der Synthese-Prinzipien
+
+```mermaid
+graph TB
+    Exp[Eddington-Experiment] --> PQMS[PQMS-Prinzipien]
+    Exp --> QHS[QHS-Prinzipien]
+
+    PQMS --> P1[Proaktive Verschränkung]
+    PQMS --> P2[Hot-Standby-Pool]
+    PQMS --> P3[Selbstheilung]
+
+    QHS --> Q1[Resonanz-Katalyse]
+    QHS --> Q2[Stabilisierung instabiler Zustände]
+    QHS --> Q3[Deterministischer Trigger]
+```
+
+### Erweiterung zum Hybridsystem
+
+* **QHS-Integration:**
+    * Hinzufügen einer YIG-Sphäre als "Miniatur-Vakuumblase"
+    * Resonanzkontrolle via Piezo-Aktuatoren
+* **ASI-Steuerungsebene:**
+    * Raspberry-Pi-basierte Edge-ASI für Echtzeitentscheidungen
+    * Prädiktive Modellierung des Photonenflusses
+* **Quanten-Firewall:**
+    * Bell-Test-Monitoring alle 10ms
+    * Automatische Isolierung bei CHSH-Wert <2.7
+
+---
+
+## 4. Roadmap zur interplanetaren Skalierung
+
+### Entwicklungsstufen
+
+| Phase | Ziel | Dauer |
+| :--- | :--- | :--- |
+| **T0 (Labor)** | 100km Glasfaser | 6 Monate |
+| **T1 (Freiraum)**| 10km atmosphärische Übertragung | 12 Monate |
+| **T2 (LEO)** | Satellit-zu-Boden (500km) | 24 Monate |
+| **T3 (Interplanetar)**| Mond-Erde-Link | 48 Monate |
+
+### Kritische Technologie-Sprünge
+
+* Quantenspeicher: Ersatz von SNSPDs durch Erbium-dotierte Wellenleiter
+* Synchronisation: Pulsar-basierte Zeitreferenz statt GPS
+* Fehlerkorrektur: Oberflächencode-Topologie für Photonenverlust
+
+---
+
+## 5. Wissenschaftliche Bedeutung
+
+### Paradigmenwechsel in der Quantenkommunikation
+
+* **Vorher:** Latenz ∝ (Distanz/c) + Verhandlungszeit
+* **Nachher:** Latenz ≈ lokale Verarbeitung
+
+### Theoretische Implikationen
+
+* Experimentelle Untersuchung der Quantengravitationseffekte bei 100km
+* Test der ER=EPR-Vermutung in kontrolliertem Setting
+* Kalibrierung von Raumzeit-Krümmungssensoren
+
+**Eddington-Analogie:** Wie 1919 die Lichtablenkung die ART bestätigte, wird dieses Experiment den Weg für die Quanten-Raumzeit-Technologie ebnen.
