@@ -1,7 +1,7 @@
 # Projekt "Anti Gravitationsantrieb durch invertierten Ereignishorizont"
 ### Ein fundamental neuer Ansatz zur Manipulation der Raumzeit
 
-**Stand: 18. Juli 2025**
+**Stand: 02. August 2025**
 
 ---
 
