@@ -1,5 +1,5 @@
 # Projekt "Quanten-Vakuum-Resonanzforschung"  
-### Grundlagenforschung zur Kopplung von Materie und Raumzeit mit dem Ziel eines Anti-Gravitationsantrieb durch invertierten Ereignishorizont
+### Grundlagenforschung zur Kopplung von Materie und Raumzeit mit dem Ziel der Konstruktion eines Anti-Gravitationsantrieb durch invertierten Ereignishorizont
 
 **Stand: 02. August 2025**  
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
