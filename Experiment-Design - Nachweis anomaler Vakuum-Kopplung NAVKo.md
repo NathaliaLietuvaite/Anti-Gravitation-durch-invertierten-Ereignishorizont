@@ -37,7 +37,7 @@ Es misst Kräfte bis **≈ 100 aN (10⁻¹⁸ N)**. Jede vom Vakuum ausgeübte a
 
 Das Experiment wird in einem Ultrahochvakuum-Kryostaten durchgeführt, um thermische und atmosphärische Störungen zu eliminieren.
 
-**********mermaid
+```mermaid
 graph TD
     subgraph UHV-Kryostat["UHV-Kryostat (4K, 10⁻⁹ mbar, µ-Metall-Schirmung)"]
         A["Mikrowellenquelle (HF-Generator)"] --> B["Mikrowellen-Resonator"];
@@ -51,7 +51,7 @@ graph TD
     D --> F((Datenanalyse));
     E --> F;
     A -- Referenzsignal --> F;
-**********
+```
 
 ### Kernkomponenten:
 * Eine hochreine **YIG-Sphäre** (Ø 1 mm) als Herzstück, aufgehängt an einem ultradünnen Quarzfaden (Torsionspendel).
