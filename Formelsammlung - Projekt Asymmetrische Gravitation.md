@@ -98,93 +98,180 @@ Hier ist der vollständige Code zur Simulation. Er kann direkt kopiert und ausge
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
+from matplotlib.ticker import ScalarFormatter
 
 # --- 1. Physikalische Grundlagen ---
 
 def hawking_temperature(M, G, c, ħ, k_B):
+    """Berechnet die Hawking-Temperatur eines Schwarzen Lochs mit Masse M"""
     return (ħ * c**3) / (8 * np.pi * G * M * k_B)
 
 def casimir_force(d, ħ, c):
+    """Berechnet die Casimir-Kraft pro Flächeneinheit zwischen zwei Platten"""
     return - (ħ * c * np.pi**2) / (240 * d**4)
 
-# Kopplungseffizienz (Lorentz-Profil)
 def coupling_efficiency(ω, ω_res, Γ):
-    return Γ**2 / ((ω - ω_res)**2 + (Γ / 2)**2)
+    """Berechnet die Resonanzkopplungseffizienz (Lorentz-Profil)"""
+    return (Γ/2)**2 / ((ω - ω_res)**2 + (Γ/2)**2)
 
-# Energiedichte des QHS-Terms
 def qhs_energy_density(χ, E_impuls_density):
+    """Berechnet die QHS-Energiedichte aus der Kopplungseffizienz"""
     return -χ * E_impuls_density  # [J/m³]
 
 # --- 2. Experimentelle Vorhersagen ---
 
-class ExperimentalPredictions:
+class GravitationsModulator:
+    """Simuliert den Gravitationsmodulationseffekt für ein bestimmtes Material"""
+    
     def __init__(self, material_params):
         self.ω_res = material_params['resonance_frequency']  # [rad/s]
         self.Γ = material_params['resonance_width']          # [rad/s]
         self.sensitivity = material_params['sensitivity_factor']  # [N / (J/m³)]
+        self.name = material_params.get('name', 'Unbenanntes Material')
     
     def χ(self, ω):
+        """Gibt die Kopplungseffizienz bei Frequenz ω zurück"""
         return coupling_efficiency(ω, self.ω_res, self.Γ)
     
     def F_anomal(self, E_impuls_density, ω):
+        """Berechnet die anomale Kraft bei gegebener Pulsenergiedichte und Frequenz"""
         χ_val = self.χ(ω)
         ρ_qhs = qhs_energy_density(χ_val, E_impuls_density)
         return ρ_qhs * self.sensitivity
+    
+    def analyze_resonance(self, E_impuls_density, f_min, f_max, num_points=500):
+        """Führt eine Resonanzanalyse durch und gibt Frequenzen und Kräfte zurück"""
+        ω_min = 2 * np.pi * f_min * 1e12
+        ω_max = 2 * np.pi * f_max * 1e12
+        ω_range = np.linspace(ω_min, ω_max, num_points)
+        
+        forces = []
+        efficiencies = []
+        
+        for ω in ω_range:
+            forces.append(self.F_anomal(E_impuls_density, ω))
+            efficiencies.append(self.χ(ω))
+        
+        f_range = ω_range / (2 * np.pi * 1e12)  # Konvertiere rad/s -> THz
+        
+        return f_range, np.array(forces), np.array(efficiencies)
 
-# --- 3. Konstanten und Materialdaten ---
+# --- 3. Materialdatenbank ---
 
-constants = {
-    'ħ': 1.0545718e-34,
-    'c': 299792458,
-    'G': 6.67430e-11,
-    'k_B': 1.380649e-23,
+MATERIAL_DATABASE = {
+    "YBa₂Cu₃O₇": {
+        'resonance_frequency': 2e12,     # rad/s (≈0.318 THz)
+        'resonance_width': 1e10,         # rad/s (≈1.6 GHz)
+        'sensitivity_factor': 5e-9,      # N/(J/m³)
+        'color': 'blue'
+    },
+    "Bi₂Sr₂CaCu₂O₈": {
+        'resonance_frequency': 3.5e12,   # rad/s (≈0.557 THz)
+        'resonance_width': 8e9,          # rad/s (≈1.27 GHz)
+        'sensitivity_factor': 7e-9,       # N/(J/m³)
+        'color': 'green'
+    },
+    "MgB₂": {
+        'resonance_frequency': 1.2e12,   # rad/s (≈0.191 THz)
+        'resonance_width': 2e10,          # rad/s (≈3.18 GHz)
+        'sensitivity_factor': 3e-9,       # N/(J/m³)
+        'color': 'red'
+    }
 }
 
-supraleiter = {
-    'name': "YBa₂Cu₃O₇",
-    'resonance_frequency': 2e12,   # rad/s (entspricht ~0.318 THz)
-    'resonance_width': 1e10,       # rad/s (~1.6 GHz)
-    'sensitivity_factor': 5e-9     # N / (J/m³)
-}
+# --- 4. Hauptsimulation und Visualisierung ---
 
-# --- 4. Simulation ---
+def plot_resonance_analysis(material_name, E_impuls_density, f_range):
+    """Führt eine vollständige Resonanzanalyse durch und visualisiert die Ergebnisse"""
+    material = MATERIAL_DATABASE[material_name]
+    modulator = GravitationsModulator(material)
+    
+    # Resonanzanalyse durchführen
+    f_points, forces, efficiencies = modulator.analyze_resonance(
+        E_impuls_density, 
+        f_range[0], 
+        f_range[1]
+    )
+    
+    # Resonanzfrequenz in THz
+    f_res = material['resonance_frequency'] / (2 * np.pi * 1e12)
+    
+    # Plot erstellen
+    plt.figure(figsize=(12, 8))
+    plt.title(f"QHS-Resonanzanalyse: {material_name}", fontsize=16, pad=20)
+    
+    # Hauptplot für die anomale Kraft
+    plt.plot(f_points, forces * 1e6, 
+             color=material['color'], 
+             linewidth=2.5,
+             label="Anomale Kraft")
+    
+    # Resonanzfrequenz markieren
+    plt.axvline(x=f_res, color='black', linestyle='--', alpha=0.7)
+    plt.annotate(f'Resonanz: {f_res:.3f} THz', 
+                 xy=(f_res, max(forces * 1e6) * 0.9), 
+                 xytext=(f_res + 0.02, max(forces * 1e6) * 0.9),
+                 arrowprops=dict(arrowstyle="->", color='black'))
+    
+    # Zweite Y-Achse für Kopplungseffizienz
+    ax2 = plt.gca().twinx()
+    ax2.plot(f_points, efficiencies, 
+             color='purple', 
+             linestyle=':', 
+             linewidth=2.5,
+             label="Kopplungseffizienz")
+    
+    # Achsenbeschriftungen und Styling
+    plt.xlabel("Frequenz [THz]", fontsize=12, labelpad=15)
+    plt.ylabel("Anomale Kraft [µN]", fontsize=12, labelpad=15)
+    ax2.set_ylabel("Kopplungseffizienz χ(ω)", fontsize=12, labelpad=15)
+    
+    # Formattierung
+    plt.gca().xaxis.set_major_formatter(ScalarFormatter(useMathText=True))
+    plt.gca().ticklabel_format(axis='x', style='sci', scilimits=(0,0))
+    plt.grid(True, linestyle='--', alpha=0.3)
+    
+    # Legende kombinieren
+    lines, labels = plt.gca().get_legend_handles_labels()
+    lines2, labels2 = ax2.get_legend_handles_labels()
+    plt.legend(lines + lines2, labels + labels2, loc='upper right', fontsize=10)
+    
+    # Zusätzliche Informationen
+    plt.figtext(0.5, 0.01, 
+                f"Energiedichte: {E_impuls_density/1000:.1f} kJ/m³ | "
+                f"Resonanzbreite: {material['resonance_width']/(2*np.pi*1e9):.2f} GHz | "
+                f"Max. Kraft: {max(forces)*1e6:.2f} µN",
+                ha="center", fontsize=10, bbox=dict(facecolor='lightyellow', alpha=0.5))
+    
+    plt.tight_layout()
+    plt.subplots_adjust(bottom=0.15)
+    return plt
+
+# --- 5. Simulationsaufruf ---
 
 if __name__ == "__main__":
-    predictions = ExperimentalPredictions(supraleiter)
-
-    ω_range = np.linspace(1.9e12, 2.1e12, 500)  # rad/s
-    f_range_THz = ω_range / (2 * np.pi * 1e12)  # THz
-
-    E_impuls_density = 1e3  # J/m³ (≙ 1 kJ/m³)
-
-    forces = []
-    efficiencies = []
-
-    for ω in ω_range:
-        forces.append(predictions.F_anomal(E_impuls_density, ω))
-        efficiencies.append(predictions.χ(ω))
-
-    # --- 5. Visualisierung ---
-
-    fig, ax1 = plt.subplots(figsize=(12, 7))
-
-    color1 = 'tab:blue'
-    ax1.set_xlabel("Frequenz [THz]")
-    ax1.set_ylabel("Anomale Kraft [N]", color=color1)
-    ax1.plot(f_range_THz, forces, color=color1, label="F_anomal (simuliert)")
-    ax1.tick_params(axis='y', labelcolor=color1)
-    ax1.axvline(x=supraleiter['resonance_frequency'] / (2 * np.pi * 1e12), 
-                color='gray', linestyle='--', label="Resonanzfrequenz")
-
-    ax2 = ax1.twinx()
-    color2 = 'tab:red'
-    ax2.set_ylabel("Kopplungseffizienz χ(ω)", color=color2)
-    ax2.plot(f_range_THz, efficiencies, color=color2, linestyle='dashed', label="χ(ω)")
-    ax2.tick_params(axis='y', labelcolor=color2)
-
-    fig.suptitle("QHS-Resonanzanalyse für YBa₂Cu₃O₇", fontsize=16)
-    fig.legend(loc='upper right')
-    fig.tight_layout()
-    plt.grid(True, linestyle='--', alpha=0.4)
-    plt.show()
-
+    # Simulationsparameter
+    MATERIAL = "YBa₂Cu₃O₇"
+    ENERGY_DENSITY = 1e3  # J/m³ = 1 kJ/m³
+    FREQ_RANGE = (0.29, 0.34)  # THz
+    
+    # Analyse durchführen und plotten
+    plot = plot_resonance_analysis(MATERIAL, ENERGY_DENSITY, FREQ_RANGE)
+    
+    # Zusätzliche Hawking-Temperaturanalyse
+    M = 1e-10  # 0.1 mg Testmasse
+    T_H = hawking_temperature(
+        M, 
+        G=6.67430e-11, 
+        c=299792458,
+        ħ=1.0545718e-34,
+        k_B=1.380649e-23
+    )
+    
+    print("\n" + "="*70)
+    print(f"Zusätzliche Stabilitätsanalyse für {MATERIAL}:")
+    print(f"• Hawking-Temperatur für {M*1e6:.1f} mg Masse: {T_H:.3e} K")
+    print(f"• Vergleich: Raumtemperatur ≈ 300 K, flüssiges Helium ≈ 4 K")
+    print("="*70 + "\n")
+    
+    plot.show()
