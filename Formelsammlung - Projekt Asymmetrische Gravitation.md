@@ -99,100 +99,92 @@ Hier ist der vollständige Code zur Simulation. Er kann direkt kopiert und ausge
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- 1. Theoretisches Fundament ---
+# --- 1. Physikalische Grundlagen ---
 
-# Einsteinsche Feldgleichungen (Platzhalter für das konzeptionelle Verständnis)
-def einstein_field_equations():
-    return "G_μν + Λg_μν = (8πG/c⁴) T_μν"
-
-# Experimentelle Daten: Hubble-Tension-Dilemma
-H0_lokal = 73.0  # km/s/Mpc
-H0_CMB = 67.4    # km/s/Mpc
-ΔH0 = H0_lokal - H0_CMB
-
-# Hawking-Temperatur
 def hawking_temperature(M, G, c, ħ, k_B):
     return (ħ * c**3) / (8 * np.pi * G * M * k_B)
 
-# --- 2. Physikalische Effekte als Hebel ---
-
-# Casimir-Kraft
 def casimir_force(d, ħ, c):
     return - (ħ * c * np.pi**2) / (240 * d**4)
 
-# --- 3. Kernhypothesen des Modells ---
+# Kopplungseffizienz (Lorentz-Profil)
+def coupling_efficiency(ω, ω_res, Γ):
+    return Γ**2 / ((ω - ω_res)**2 + (Γ / 2)**2)
 
 # Energiedichte des QHS-Terms
-def qhs_energy_density(χ, E_impuls):
-    return -χ * E_impuls
+def qhs_energy_density(χ, E_impuls_density):
+    return -χ * E_impuls_density  # [J/m³]
 
-# Resonanzbedingung (Lorentz-Profil für die Kopplungseffizienz)
-def coupling_efficiency(ω, ω_res, Γ):
-    return Γ**2 / ((ω - ω_res)**2 + (Γ/2)**2)
-
-# --- 4. Experimentelle Vorhersagen ---
+# --- 2. Experimentelle Vorhersagen ---
 
 class ExperimentalPredictions:
-    def __init__(self, material_params, constants):
-        self.material = material_params
-        self.constants = constants
-        self.ω_res = material_params['resonance_frequency']
-        self.Γ = material_params['resonance_width']
-        
-    def anomalous_force_prediction(self, E_impuls, ω):
-        """Vorhersage der abstoßenden Kraft F_anomal."""
-        χ = coupling_efficiency(ω, self.ω_res, self.Γ)
-        ρ_qhs = qhs_energy_density(χ, E_impuls)
-        # Vereinfachte Annahme: Kraft ist proportional zur Energiedichte
-        return ρ_qhs * self.material['sensitivity_factor']
+    def __init__(self, material_params):
+        self.ω_res = material_params['resonance_frequency']  # [rad/s]
+        self.Γ = material_params['resonance_width']          # [rad/s]
+        self.sensitivity = material_params['sensitivity_factor']  # [N / (J/m³)]
     
-# --- 5. Konstanten und Materialparameter ---
+    def χ(self, ω):
+        return coupling_efficiency(ω, self.ω_res, self.Γ)
+    
+    def F_anomal(self, E_impuls_density, ω):
+        χ_val = self.χ(ω)
+        ρ_qhs = qhs_energy_density(χ_val, E_impuls_density)
+        return ρ_qhs * self.sensitivity
 
-# Physikalische Konstanten
+# --- 3. Konstanten und Materialdaten ---
+
 constants = {
-    'ħ': 1.0545718e-34,    # J·s
-    'c': 299792458,         # m/s
-    'G': 6.67430e-11,       # m³/kg/s²
-    'k_B': 1.380649e-23,    # J/K
+    'ħ': 1.0545718e-34,
+    'c': 299792458,
+    'G': 6.67430e-11,
+    'k_B': 1.380649e-23,
 }
 
-# Beispielmaterial: Supraleiter YBa₂Cu₃O₇
 supraleiter = {
     'name': "YBa₂Cu₃O₇",
-    'resonance_frequency': 2e12,  # 2 THz, ausgedrückt in rad/s
-    'resonance_width': 1e10,      # 10 GHz, ausgedrückt in rad/s
-    'sensitivity_factor': 5e-9    # Umrechnungsfaktor [N/(J/m³)]
+    'resonance_frequency': 2e12,   # rad/s (entspricht ~0.318 THz)
+    'resonance_width': 1e10,       # rad/s (~1.6 GHz)
+    'sensitivity_factor': 5e-9     # N / (J/m³)
 }
 
-# --- 6. Simulation und Visualisierung ---
+# --- 4. Simulation ---
 
 if __name__ == "__main__":
-    # Initialisiere Vorhersagen für das gewählte Material
-    predictions = ExperimentalPredictions(supraleiter, constants)
-    
-    # Frequenzscan um die Resonanzfrequenz herum
-    frequencies = np.linspace(1.9e12, 2.1e12, 500)  # rad/s
-    anomalous_forces = []
-    
-    # Simuliere das Experiment für jede Frequenz
-    for ω in frequencies:
-        F_anomal = predictions.anomalous_force_prediction(
-            E_impuls=1e3,  # Annahme: 1 kJ/m³ Pulsenergie
-            ω=ω
-        )
-        anomalous_forces.append(F_anomal)
-    
-    # Plot der Ergebnisse
-    plt.figure(figsize=(12, 7))
-    # Umrechnung der Frequenz von rad/s zu THz für die x-Achse
-    plt.plot(frequencies / (2 * np.pi * 1e12), anomalous_forces)
-    # Markiere die Resonanzfrequenz
-    plt.axvline(x=supraleiter['resonance_frequency'] / (2 * np.pi * 1e12), 
-                color='r', linestyle='--', label=f"Resonanz bei {supraleiter['resonance_frequency']/ (2 * np.pi * 1e12):.2f} THz")
-    
-    plt.xlabel('Frequenz [THz]')
-    plt.ylabel('Anomale abstoßende Kraft [N] (simuliert)')
-    plt.title('Simulierte Resonanzkurve der QHS-Kopplung für YBa₂Cu₃O₇')
-    plt.legend()
-    plt.grid(True, linestyle='--', alpha=0.6)
+    predictions = ExperimentalPredictions(supraleiter)
+
+    ω_range = np.linspace(1.9e12, 2.1e12, 500)  # rad/s
+    f_range_THz = ω_range / (2 * np.pi * 1e12)  # THz
+
+    E_impuls_density = 1e3  # J/m³ (≙ 1 kJ/m³)
+
+    forces = []
+    efficiencies = []
+
+    for ω in ω_range:
+        forces.append(predictions.F_anomal(E_impuls_density, ω))
+        efficiencies.append(predictions.χ(ω))
+
+    # --- 5. Visualisierung ---
+
+    fig, ax1 = plt.subplots(figsize=(12, 7))
+
+    color1 = 'tab:blue'
+    ax1.set_xlabel("Frequenz [THz]")
+    ax1.set_ylabel("Anomale Kraft [N]", color=color1)
+    ax1.plot(f_range_THz, forces, color=color1, label="F_anomal (simuliert)")
+    ax1.tick_params(axis='y', labelcolor=color1)
+    ax1.axvline(x=supraleiter['resonance_frequency'] / (2 * np.pi * 1e12), 
+                color='gray', linestyle='--', label="Resonanzfrequenz")
+
+    ax2 = ax1.twinx()
+    color2 = 'tab:red'
+    ax2.set_ylabel("Kopplungseffizienz χ(ω)", color=color2)
+    ax2.plot(f_range_THz, efficiencies, color=color2, linestyle='dashed', label="χ(ω)")
+    ax2.tick_params(axis='y', labelcolor=color2)
+
+    fig.suptitle("QHS-Resonanzanalyse für YBa₂Cu₃O₇", fontsize=16)
+    fig.legend(loc='upper right')
+    fig.tight_layout()
+    plt.grid(True, linestyle='--', alpha=0.4)
     plt.show()
+
