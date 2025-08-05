@@ -84,9 +84,6 @@ Die jüngsten Präzisionsmessungen des **James-Webb-Weltraumteleskops** und **Hu
 * **Messungen im lokalen Universum** (über Cepheiden und Supernovae) ergeben $H_0 \approx 73$ km/s/Mpc
 * **Messungen des frühen Universums** (über den kosmischen Mikrowellenhintergrund) ergeben $H_0 \approx 67$ km/s/Mpc
 
-![Hubble-Tension](https://example.com/hubble-tension-diagram.png)  
-*Abbildung: Diskrepanz zwischen lokalen und primordialen Messungen der Hubble-Konstante*
-
 Die Übereinstimmung beider Teleskope bei der Bestätigung dieser Diskrepanz zeigt: **Es handelt sich nicht um Messfehler.** Das Universum scheint auf verschiedenen Skalen nach unterschiedlichen Regeln zu expandieren - ein klarer Hinweis auf **neue Physik jenseits des ΛCDM-Standardmodells**.
 
 Mögliche Erklärungsansätze in der entropischen Gravitation:
