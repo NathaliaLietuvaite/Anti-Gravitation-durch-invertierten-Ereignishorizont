@@ -136,21 +136,22 @@ $$
 ## Konsequenzen für unser Projekt
 
 ### Neue experimentelle Vorhersagen
-1. **Skaleneffekte**: Gravitationsmodulation bei >1m-Skalen
-2. **Frequenzabhängigkeit**: Optimaler Wirkungsgrad bei:
-   $$
-   f_{\text{opt}} = \frac{c}{2\pi} \sqrt{\frac{H_0}{\Lambda c}} \approx 0.3 \text{ THz}
-   $$
-3. **Vakuum-Entropiekorrelation**: Korrelation mit CMB-Fluktuationen
+1.  **Skaleneffekte**: Gravitationsmodulation bei >1m-Skalen
+2.  **Frequenzabhängigkeit**: Optimaler Wirkungsgrad bei:
+    ```math
+    f_{\text{opt}} = \frac{c}{2\pi} \sqrt{\frac{H_0}{\Lambda c}} \approx 0.3 \text{ THz}
+    ```
+3.  **Vakuum-Entropiekorrelation**: Korrelation mit CMB-Fluktuationen
+
+---
 
 ### Überarbeitetes QHS-Design
 * **Duale Skalen-Sensoren**:
-  - Mikroskalige Entropie-Gradienten (nm-Präzision)
-  - Makroskalige Hubble-Kopplung (21-cm-Astronomie)
-  
+    * Mikroskalige Entropie-Gradienten (nm-Präzision)
+    * Makroskalige Hubble-Kopplung (21-cm-Astronomie)
 * **Dynamische Anpassung**:
-  $$
-  \alpha(t) = \alpha_0 \exp\left[-\left(\frac{H(t) - H_0}{\sigma_H}\right)^2\right]
-  $$
+    ```math
+    \alpha(t) = \alpha_0 \exp\left[-\left(\frac{H(t) - H_0}{\sigma_H}\right)^2\right]
+  ``` 
 
 > **Die Hubble-Tension ist ein Fenster zur Entropie-Architektur der Raumzeit** - sie transformiert theoretische Herausforderungen in experimentelle Hebel für Gravitationskontrolle.
