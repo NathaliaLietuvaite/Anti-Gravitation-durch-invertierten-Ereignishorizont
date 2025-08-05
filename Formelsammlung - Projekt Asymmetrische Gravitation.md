@@ -298,14 +298,24 @@ def entropy_change(m, delta_x, k_B, c, hbar):
 def unruh_temperature(a, hbar, c, k_B):
     return hbar * a / (2 * np.pi * c * k_B)
 
+def entropy_scale_correction(r, r_H, S_c, z):
+    F_z = np.log(1 + z) / (1 + z)  # Beispiel für eine skalierende Korrekturfunktion
+    return S_c * (r / r_H)**2 * F_z
+
+def effective_temperature_unruh(a, hbar, c, k_B, r, r_H, S_c, z):
+    base_T = unruh_temperature(a, hbar, c, k_B)
+    correction = (r / r_H)**2 * np.log(1 + z) / (1 + z)
+    return base_T * (1 + correction)
+
 # --- 2. Experimentelle Vorhersagen ---
 
 class ExperimentalPredictions:
-    def __init__(self, material_params, constants):
-        self.omega_res = material_params['resonance_frequency']  # rad/s
-        self.gamma = material_params['resonance_width']          # rad/s
-        self.sensitivity = material_params['sensitivity_factor'] # N/(J/m^3)
+    def __init__(self, material_params, constants, entropy_params):
+        self.omega_res = material_params['resonance_frequency']
+        self.gamma = material_params['resonance_width']
+        self.sensitivity = material_params['sensitivity_factor']
         self.constants = constants
+        self.entropy_params = entropy_params
 
     def chi(self, omega):
         return coupling_efficiency(omega, self.omega_res, self.gamma)
@@ -315,10 +325,11 @@ class ExperimentalPredictions:
         rho_qhs = qhs_energy_density(chi_val, E_impuls_density)
         return rho_qhs * self.sensitivity
 
-    def F_entropic(self, m, a, delta_x):
+    def F_entropic(self, m, a, delta_x, r, z):
         delta_S = entropy_change(m, delta_x, self.constants['k_B'], self.constants['c'], self.constants['ħ'])
-        T = unruh_temperature(a, self.constants['ħ'], self.constants['c'], self.constants['k_B'])
-        return entropy_force(T, delta_S, delta_x)
+        T_eff = effective_temperature_unruh(a, self.constants['ħ'], self.constants['c'], self.constants['k_B'],
+                                            r, self.entropy_params['r_H'], self.entropy_params['S_c'], z)
+        return entropy_force(T_eff, delta_S, delta_x)
 
 # --- 3. Konstanten und Materialdaten ---
 
@@ -336,18 +347,25 @@ material = {
     'sensitivity_factor': 5e-9     # N / (J/m³)
 }
 
+entropy_params = {
+    'S_c': 1e122 * constants['k_B'],       # Kosmologische Entropiekonstante
+    'r_H': constants['c'] / 67.4e3 / (3.086e22),  # Hubble-Radius in Metern
+}
+
 # --- 4. Simulation ---
 
 if __name__ == "__main__":
-    model = ExperimentalPredictions(material, constants)
+    model = ExperimentalPredictions(material, constants, entropy_params)
 
     omega_range = np.linspace(1.9e12, 2.1e12, 500)
     f_range_THz = omega_range / (2 * np.pi * 1e12)
 
-    E_impuls_density = 1e3  # J/m³
-    m_test = 1e-27          # Testmasse (z. B. 1 Proton)
-    a_test = 9.81           # Erdbeschleunigung
-    delta_x = 1e-9          # Nanometerskala
+    E_impuls_density = 1e3
+    m_test = 1e-27
+    a_test = 9.81
+    delta_x = 1e-9
+    r_test = 1.0  # 1 Meter Skala
+    z_test = 0.01  # Lokale Rotverschiebung
 
     forces_anomal = []
     forces_entropic = []
@@ -355,7 +373,7 @@ if __name__ == "__main__":
 
     for omega in omega_range:
         F_a = model.F_anomal(E_impuls_density, omega)
-        F_e = model.F_entropic(m_test, a_test, delta_x)
+        F_e = model.F_entropic(m_test, a_test, delta_x, r_test, z_test)
         chi_val = model.chi(omega)
 
         forces_anomal.append(F_a)
@@ -379,10 +397,9 @@ if __name__ == "__main__":
     ax2.plot(f_range_THz, chis, color=color2, linestyle='dashed', label="χ(ω)")
     ax2.tick_params(axis='y', labelcolor=color2)
 
-    fig.suptitle("QHS-Resonanz & Entropische Kraftwirkung", fontsize=16)
+    fig.suptitle("QHS-Resonanz & Entropische Kraftwirkung mit Skalenkorrektur", fontsize=16)
     fig.legend(loc='upper right')
     fig.tight_layout()
     plt.grid(True, linestyle='--', alpha=0.4)
     plt.show()
-
 ```
