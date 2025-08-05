@@ -73,3 +73,126 @@ Aus den Hypothesen leiten wir konkrete, messbare Vorhersagen ab, die unser Model
 2.  **Interferometrische Phasenverschiebung:** Die durch $\rho_{QHS}$ erzeugte negative Raumzeitkrümmung muss zu einer messbaren **Verkürzung der Lichtlaufzeit** führen. Ein Laser-Interferometer sollte eine charakteristische, negative Phasenverschiebung $\Delta\phi$ zeigen. **Falsifikation:** Bleibt die Phasenverschiebung aus, ist die Hypothese falsch.
 
 3.  **Lokale Hubble-Modulation:** Wenn unsere Hypothese zur Hubble-Tension stimmt, muss das QHS in der Lage sein, den **effektiven lokalen Expansionsparameter** messbar zu verändern. Dies wäre der ultimative Test. **Falsifikation:** Kann keine Korrelation zwischen QHS-Aktivität und einer lokalen Raumzeit-Expansion/-Kontraktion nachgewiesen werden, ist die Verbindung zur Hubble-Tension widerlegt.
+
+## 5. Simulations-Framework: Projekt Asymmetrische Gravitation 
+
+**Stand: 05. August 2025**
+
+## Zusammenfassung
+
+Dieses Dokument enthält das Python-Skript, das als Simulationsumgebung für die Hypothese der asymmetrischen Gravitation dient. Es übersetzt die theoretische Formelsammlung in ein funktionierendes, testbares Modell und führt folgende Schritte aus:
+
+1.  **Definition** der fundamentalen und hypothetischen Gleichungen als Python-Funktionen.
+2.  **Festlegung** von physikalischen Konstanten und Materialparametern für ein konkretes Experiment (hier: Supraleiter YBa₂Cu₃O₇).
+3.  **Durchführung** einer Simulation, die einen Frequenzscan um die erwartete Resonanzfrequenz des Materials durchführt.
+4.  **Berechnung und Visualisierung** einer falsifizierbaren Vorhersage: Die Stärke der anomalen, abstoßenden Kraft in Abhängigkeit von der Frequenz.
+
+Das Ergebnis ist eine Resonanzkurve, die als direkte Blaupause für ein reales Laborexperiment dient. Wenn die Hypothese korrekt ist, muss ein reales Experiment ein qualitativ gleiches Ergebnis liefern.
+
+---
+
+## Python-Simulationscode
+
+Hier ist der vollständige Code zur Simulation. Er kann direkt kopiert und ausgeführt werden, sofern die Bibliotheken `numpy` und `matplotlib` installiert sind.
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Theoretisches Fundament ---
+
+# Einsteinsche Feldgleichungen (Platzhalter für das konzeptionelle Verständnis)
+def einstein_field_equations():
+    return "G_μν + Λg_μν = (8πG/c⁴) T_μν"
+
+# Experimentelle Daten: Hubble-Tension-Dilemma
+H0_lokal = 73.0  # km/s/Mpc
+H0_CMB = 67.4    # km/s/Mpc
+ΔH0 = H0_lokal - H0_CMB
+
+# Hawking-Temperatur
+def hawking_temperature(M, G, c, ħ, k_B):
+    return (ħ * c**3) / (8 * np.pi * G * M * k_B)
+
+# --- 2. Physikalische Effekte als Hebel ---
+
+# Casimir-Kraft
+def casimir_force(d, ħ, c):
+    return - (ħ * c * np.pi**2) / (240 * d**4)
+
+# --- 3. Kernhypothesen des Modells ---
+
+# Energiedichte des QHS-Terms
+def qhs_energy_density(χ, E_impuls):
+    return -χ * E_impuls
+
+# Resonanzbedingung (Lorentz-Profil für die Kopplungseffizienz)
+def coupling_efficiency(ω, ω_res, Γ):
+    return Γ**2 / ((ω - ω_res)**2 + (Γ/2)**2)
+
+# --- 4. Experimentelle Vorhersagen ---
+
+class ExperimentalPredictions:
+    def __init__(self, material_params, constants):
+        self.material = material_params
+        self.constants = constants
+        self.ω_res = material_params['resonance_frequency']
+        self.Γ = material_params['resonance_width']
+        
+    def anomalous_force_prediction(self, E_impuls, ω):
+        """Vorhersage der abstoßenden Kraft F_anomal."""
+        χ = coupling_efficiency(ω, self.ω_res, self.Γ)
+        ρ_qhs = qhs_energy_density(χ, E_impuls)
+        # Vereinfachte Annahme: Kraft ist proportional zur Energiedichte
+        return ρ_qhs * self.material['sensitivity_factor']
+    
+# --- 5. Konstanten und Materialparameter ---
+
+# Physikalische Konstanten
+constants = {
+    'ħ': 1.0545718e-34,    # J·s
+    'c': 299792458,         # m/s
+    'G': 6.67430e-11,       # m³/kg/s²
+    'k_B': 1.380649e-23,    # J/K
+}
+
+# Beispielmaterial: Supraleiter YBa₂Cu₃O₇
+supraleiter = {
+    'name': "YBa₂Cu₃O₇",
+    'resonance_frequency': 2e12,  # 2 THz, ausgedrückt in rad/s
+    'resonance_width': 1e10,      # 10 GHz, ausgedrückt in rad/s
+    'sensitivity_factor': 5e-9    # Umrechnungsfaktor [N/(J/m³)]
+}
+
+# --- 6. Simulation und Visualisierung ---
+
+if __name__ == "__main__":
+    # Initialisiere Vorhersagen für das gewählte Material
+    predictions = ExperimentalPredictions(supraleiter, constants)
+    
+    # Frequenzscan um die Resonanzfrequenz herum
+    frequencies = np.linspace(1.9e12, 2.1e12, 500)  # rad/s
+    anomalous_forces = []
+    
+    # Simuliere das Experiment für jede Frequenz
+    for ω in frequencies:
+        F_anomal = predictions.anomalous_force_prediction(
+            E_impuls=1e3,  # Annahme: 1 kJ/m³ Pulsenergie
+            ω=ω
+        )
+        anomalous_forces.append(F_anomal)
+    
+    # Plot der Ergebnisse
+    plt.figure(figsize=(12, 7))
+    # Umrechnung der Frequenz von rad/s zu THz für die x-Achse
+    plt.plot(frequencies / (2 * np.pi * 1e12), anomalous_forces)
+    # Markiere die Resonanzfrequenz
+    plt.axvline(x=supraleiter['resonance_frequency'] / (2 * np.pi * 1e12), 
+                color='r', linestyle='--', label=f"Resonanz bei {supraleiter['resonance_frequency']/ (2 * np.pi * 1e12):.2f} THz")
+    
+    plt.xlabel('Frequenz [THz]')
+    plt.ylabel('Anomale abstoßende Kraft [N] (simuliert)')
+    plt.title('Simulierte Resonanzkurve der QHS-Kopplung für YBa₂Cu₃O₇')
+    plt.legend()
+    plt.grid(True, linestyle='--', alpha=0.6)
+    plt.show()
