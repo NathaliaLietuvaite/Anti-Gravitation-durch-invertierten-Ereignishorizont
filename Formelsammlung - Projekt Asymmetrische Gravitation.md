@@ -275,3 +275,114 @@ if __name__ == "__main__":
     print("="*70 + "\n")
     
     plot.show()
+```
+---
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+
+# --- 1. Physikalische Grundlagen mit entropischer Gravitation ---
+
+def coupling_efficiency(omega, omega_res, gamma):
+    return gamma**2 / ((omega - omega_res)**2 + (gamma / 2)**2)
+
+def qhs_energy_density(chi, E_impuls_density):
+    return -chi * E_impuls_density
+
+def entropy_force(T, delta_S, delta_x):
+    return (T * delta_S) / delta_x
+
+def entropy_change(m, delta_x, k_B, c, hbar):
+    return 2 * np.pi * k_B * m * c * delta_x / hbar
+
+def unruh_temperature(a, hbar, c, k_B):
+    return hbar * a / (2 * np.pi * c * k_B)
+
+# --- 2. Experimentelle Vorhersagen ---
+
+class ExperimentalPredictions:
+    def __init__(self, material_params, constants):
+        self.omega_res = material_params['resonance_frequency']  # rad/s
+        self.gamma = material_params['resonance_width']          # rad/s
+        self.sensitivity = material_params['sensitivity_factor'] # N/(J/m^3)
+        self.constants = constants
+
+    def chi(self, omega):
+        return coupling_efficiency(omega, self.omega_res, self.gamma)
+
+    def F_anomal(self, E_impuls_density, omega):
+        chi_val = self.chi(omega)
+        rho_qhs = qhs_energy_density(chi_val, E_impuls_density)
+        return rho_qhs * self.sensitivity
+
+    def F_entropic(self, m, a, delta_x):
+        delta_S = entropy_change(m, delta_x, self.constants['k_B'], self.constants['c'], self.constants['ħ'])
+        T = unruh_temperature(a, self.constants['ħ'], self.constants['c'], self.constants['k_B'])
+        return entropy_force(T, delta_S, delta_x)
+
+# --- 3. Konstanten und Materialdaten ---
+
+constants = {
+    'ħ': 1.0545718e-34,
+    'c': 299792458,
+    'G': 6.67430e-11,
+    'k_B': 1.380649e-23,
+}
+
+material = {
+    'name': "YBa₂Cu₃O₇",
+    'resonance_frequency': 2e12,   # rad/s
+    'resonance_width': 1e10,       # rad/s
+    'sensitivity_factor': 5e-9     # N / (J/m³)
+}
+
+# --- 4. Simulation ---
+
+if __name__ == "__main__":
+    model = ExperimentalPredictions(material, constants)
+
+    omega_range = np.linspace(1.9e12, 2.1e12, 500)
+    f_range_THz = omega_range / (2 * np.pi * 1e12)
+
+    E_impuls_density = 1e3  # J/m³
+    m_test = 1e-27          # Testmasse (z. B. 1 Proton)
+    a_test = 9.81           # Erdbeschleunigung
+    delta_x = 1e-9          # Nanometerskala
+
+    forces_anomal = []
+    forces_entropic = []
+    chis = []
+
+    for omega in omega_range:
+        F_a = model.F_anomal(E_impuls_density, omega)
+        F_e = model.F_entropic(m_test, a_test, delta_x)
+        chi_val = model.chi(omega)
+
+        forces_anomal.append(F_a)
+        forces_entropic.append(F_e)
+        chis.append(chi_val)
+
+    # --- 5. Visualisierung ---
+
+    fig, ax1 = plt.subplots(figsize=(12, 7))
+    color1 = 'tab:blue'
+    ax1.set_xlabel("Frequenz [THz]")
+    ax1.set_ylabel("Anomale Kraft [N]", color=color1)
+    ax1.plot(f_range_THz, forces_anomal, color=color1, label="F_anomal (QHS)")
+    ax1.tick_params(axis='y', labelcolor=color1)
+    ax1.axvline(x=material['resonance_frequency'] / (2 * np.pi * 1e12), 
+                color='gray', linestyle='--', label="Resonanzfrequenz")
+
+    ax2 = ax1.twinx()
+    color2 = 'tab:red'
+    ax2.set_ylabel("Kopplungseffizienz χ(ω)", color=color2)
+    ax2.plot(f_range_THz, chis, color=color2, linestyle='dashed', label="χ(ω)")
+    ax2.tick_params(axis='y', labelcolor=color2)
+
+    fig.suptitle("QHS-Resonanz & Entropische Kraftwirkung", fontsize=16)
+    fig.legend(loc='upper right')
+    fig.tight_layout()
+    plt.grid(True, linestyle='--', alpha=0.4)
+    plt.show()
+
+```
