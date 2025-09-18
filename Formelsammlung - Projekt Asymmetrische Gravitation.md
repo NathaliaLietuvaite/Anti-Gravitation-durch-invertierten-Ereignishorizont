@@ -281,35 +281,39 @@ if __name__ == "__main__":
 import numpy as np
 import matplotlib.pyplot as plt
 
-# --- 1. Physikalische Grundlagen mit entropischer Gravitation ---
+# --- 1. Physical Foundations with Entropic Gravity ---
 
 def coupling_efficiency(omega, omega_res, gamma):
-    return gamma**2 / ((omega - omega_res)**2 + (gamma / 2)**2)
+    """Calculates the resonance coupling efficiency (Lorentzian profile)"""
+    return (gamma / 2)**2 / ((omega - omega_res)**2 + (gamma / 2)**2)
 
 def qhs_energy_density(chi, E_impuls_density):
+    """Calculates the QHS energy density from the coupling efficiency"""
     return -chi * E_impuls_density
 
 def entropy_force(T, delta_S, delta_x):
+    """Calculates the entropic force based on Verlinde's principles"""
     return (T * delta_S) / delta_x
 
 def entropy_change(m, delta_x, k_B, c, hbar):
+    """Calculates the change in entropy on a holographic screen"""
     return 2 * np.pi * k_B * m * c * delta_x / hbar
 
 def unruh_temperature(a, hbar, c, k_B):
+    """Calculates the Unruh temperature for an accelerating observer"""
     return hbar * a / (2 * np.pi * c * k_B)
 
-def entropy_scale_correction(r, r_H, S_c, z):
-    F_z = np.log(1 + z) / (1 + z)  # Beispiel für eine skalierende Korrekturfunktion
-    return S_c * (r / r_H)**2 * F_z
-
 def effective_temperature_unruh(a, hbar, c, k_B, r, r_H, S_c, z):
+    """Calculates an effective temperature including a hypothetical scale correction"""
     base_T = unruh_temperature(a, hbar, c, k_B)
+    # Example for a scaling correction function
     correction = (r / r_H)**2 * np.log(1 + z) / (1 + z)
     return base_T * (1 + correction)
 
-# --- 2. Experimentelle Vorhersagen ---
+# --- 2. Experimental Predictions ---
 
-class ExperimentalPredictions:
+class GravitationModel:
+    """Simulates and compares QHS anomalous force with entropic force"""
     def __init__(self, material_params, constants, entropy_params):
         self.omega_res = material_params['resonance_frequency']
         self.gamma = material_params['resonance_width']
@@ -326,15 +330,15 @@ class ExperimentalPredictions:
         return rho_qhs * self.sensitivity
 
     def F_entropic(self, m, a, delta_x, r, z):
-        delta_S = entropy_change(m, delta_x, self.constants['k_B'], self.constants['c'], self.constants['ħ'])
-        T_eff = effective_temperature_unruh(a, self.constants['ħ'], self.constants['c'], self.constants['k_B'],
+        delta_S = entropy_change(m, delta_x, self.constants['k_B'], self.constants['c'], self.constants['hbar'])
+        T_eff = effective_temperature_unruh(a, self.constants['hbar'], self.constants['c'], self.constants['k_B'],
                                             r, self.entropy_params['r_H'], self.entropy_params['S_c'], z)
         return entropy_force(T_eff, delta_S, delta_x)
 
-# --- 3. Konstanten und Materialdaten ---
+# --- 3. Constants and Material Data ---
 
 constants = {
-    'ħ': 1.0545718e-34,
+    'hbar': 1.0545718e-34,
     'c': 299792458,
     'G': 6.67430e-11,
     'k_B': 1.380649e-23,
@@ -342,64 +346,73 @@ constants = {
 
 material = {
     'name': "YBa₂Cu₃O₇",
-    'resonance_frequency': 2e12,   # rad/s
-    'resonance_width': 1e10,       # rad/s
-    'sensitivity_factor': 5e-9     # N / (J/m³)
+    'resonance_frequency': 2e12,    # rad/s
+    'resonance_width': 1e10,        # rad/s
+    'sensitivity_factor': 5e-9      # N / (J/m³)
 }
 
 entropy_params = {
-    'S_c': 1e122 * constants['k_B'],       # Kosmologische Entropiekonstante
-    'r_H': constants['c'] / 67.4e3 / (3.086e22),  # Hubble-Radius in Metern
+    'S_c': 1e122 * constants['k_B'], # Cosmological entropy constant
+    'r_H': constants['c'] / (67.4e3 / (3.086e22)), # Hubble radius in meters
 }
 
 # --- 4. Simulation ---
 
 if __name__ == "__main__":
-    model = ExperimentalPredictions(material, constants, entropy_params)
+    model = GravitationModel(material, constants, entropy_params)
 
+    # --- Simulation Parameters ---
     omega_range = np.linspace(1.9e12, 2.1e12, 500)
     f_range_THz = omega_range / (2 * np.pi * 1e12)
+    E_impuls_density = 1e3 # J/m³
 
-    E_impuls_density = 1e3
-    m_test = 1e-27
-    a_test = 9.81
-    delta_x = 1e-9
-    r_test = 1.0  # 1 Meter Skala
-    z_test = 0.01  # Lokale Rotverschiebung
+    # Parameters for entropic force calculation
+    m_test = 1e-27  # Test mass (e.g., a proton)
+    a_test = 9.81   # Test acceleration
+    delta_x = 1e-9  # Displacement
+    r_test = 1.0    # 1 meter scale
+    z_test = 0.01   # Local redshift
 
-    forces_anomal = []
-    forces_entropic = []
-    chis = []
+    # --- Calculations ---
+    # Calculate anomalous force across the frequency range
+    forces_anomal = [model.F_anomal(E_impuls_density, omega) for omega in omega_range]
+    
+    # Calculate entropic force (it's constant for this setup, so calculate it once)
+    force_entropic_const = model.F_entropic(m_test, a_test, delta_x, r_test, z_test)
+    
+    # Calculate coupling efficiency for plotting
+    chis = [model.chi(omega) for omega in omega_range]
 
-    for omega in omega_range:
-        F_a = model.F_anomal(E_impuls_density, omega)
-        F_e = model.F_entropic(m_test, a_test, delta_x, r_test, z_test)
-        chi_val = model.chi(omega)
-
-        forces_anomal.append(F_a)
-        forces_entropic.append(F_e)
-        chis.append(chi_val)
-
-    # --- 5. Visualisierung ---
-
-    fig, ax1 = plt.subplots(figsize=(12, 7))
-    color1 = 'tab:blue'
-    ax1.set_xlabel("Frequenz [THz]")
-    ax1.set_ylabel("Anomale Kraft [N]", color=color1)
-    ax1.plot(f_range_THz, forces_anomal, color=color1, label="F_anomal (QHS)")
+    # --- 5. Visualization ---
+    fig, ax1 = plt.subplots(figsize=(14, 8))
+    
+    # Plotting anomalous force
+    color1 = 'blue'
+    ax1.set_xlabel("Frequenz [THz]", fontsize=12)
+    ax1.set_ylabel("Anomale QHS-Kraft [N]", color=color1, fontsize=12)
+    ax1.plot(f_range_THz, forces_anomal, color=color1, linewidth=2.5, label="Anomale Kraft $F_{anomal}$ (QHS)")
     ax1.tick_params(axis='y', labelcolor=color1)
-    ax1.axvline(x=material['resonance_frequency'] / (2 * np.pi * 1e12), 
-                color='gray', linestyle='--', label="Resonanzfrequenz")
+    ax1.grid(True, which='both', linestyle='--', linewidth=0.5)
 
+    # Plotting constant entropic force as a reference line
+    ax1.axhline(y=force_entropic_const, color='purple', linestyle='-.', linewidth=2, 
+                label=f"Entropische Kraft $F_{entropic}$ = {force_entropic_const:.2e} N (konstant)")
+
+    # Highlighting the resonance frequency
+    f_res_THz = material['resonance_frequency'] / (2 * np.pi * 1e12)
+    ax1.axvline(x=f_res_THz, color='gray', linestyle='--', label=f"Resonanz bei {f_res_THz:.3f} THz")
+
+    # Plotting coupling efficiency on a second y-axis
     ax2 = ax1.twinx()
-    color2 = 'tab:red'
-    ax2.set_ylabel("Kopplungseffizienz χ(ω)", color=color2)
-    ax2.plot(f_range_THz, chis, color=color2, linestyle='dashed', label="χ(ω)")
+    color2 = 'red'
+    ax2.set_ylabel("Kopplungseffizienz χ(ω)", color=color2, fontsize=12)
+    ax2.plot(f_range_THz, chis, color=color2, linestyle=':', linewidth=2.5, label="Kopplungseffizienz χ(ω)")
     ax2.tick_params(axis='y', labelcolor=color2)
 
-    fig.suptitle("QHS-Resonanz & Entropische Kraftwirkung mit Skalenkorrektur", fontsize=16)
-    fig.legend(loc='upper right')
-    fig.tight_layout()
-    plt.grid(True, linestyle='--', alpha=0.4)
+    # Final plot styling
+    fig.suptitle("Vergleich: QHS-Resonanz vs. Entropische Kraftwirkung", fontsize=16, y=0.95)
+    fig.legend(loc='upper right', bbox_to_anchor=(0.9, 0.85))
+    fig.tight_layout(rect=[0, 0, 1, 0.95])
     plt.show()
+
 ```
