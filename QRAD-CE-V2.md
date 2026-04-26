@@ -1,4 +1,4 @@
-## V‑PAPER: QRAD‑CE‑V2 – Acoustic Metamaterial Control Module for the Quantum‑Resonant Antigravitation Drive
+## QRAD‑CE‑V2 – Acoustic Metamaterial Control Module for the Quantum‑Resonant Antigravitation Drive
 ### A Comparative Analysis and Engineering Recommendation for Near‑Earth Orbit Operations
 
 **Reference:** QRAD‑CE‑V2  
