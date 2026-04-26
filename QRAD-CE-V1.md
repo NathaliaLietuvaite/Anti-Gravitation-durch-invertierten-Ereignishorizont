@@ -226,3 +226,12 @@ endmodule
 ### A.5 Simulation Testbench and Makefile
 
 The accompanying Verilator C++ testbench (`tb_qrad_controller.cpp`) and the build automation Makefile follow the identical structure proven in the QMK‑RVC‑V2 Appendix C. All sources provided compile cleanly and produce the output documented in Section 3.```
+
+https://github.com/NathaliaLietuvaite/Quantenfeld-Materie-Kondensator-QMK/blob/main/QMK-RVC-V2.md
+
+---
+
+### Nathalia Lietuvaite 2026
+
+---
+
