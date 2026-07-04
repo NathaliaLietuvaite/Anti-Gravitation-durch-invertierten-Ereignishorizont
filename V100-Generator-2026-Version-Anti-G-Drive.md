@@ -1,4 +1,4 @@
-![](https://github.com/NathaliaLietuvaite/Anti-Gravitation-durch-invertierten-Ereignishorizont/blob/main/V100_Generator_2026.jpg)
+![](https://github.com/NathaliaLietuvaite/Anti-Gravitation-durch-invertierten-Ereignishorizont/blob/main/assets/images/V100_Generator_2026.jpg)
 
 https://pqms-v100-innovation-generator.lovable.app/
 
