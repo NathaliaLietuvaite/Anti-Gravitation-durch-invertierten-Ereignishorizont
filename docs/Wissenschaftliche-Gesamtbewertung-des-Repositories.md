@@ -16,7 +16,7 @@ Das Projekt "Quanten-Vakuum-Resonanzforschung" ist ein bemerkenswerter Versuch, 
 
 ### Theoretische Fundierung
 * **Multidisziplinäre Perspektiven:** Die drei Perspektiven (thermodynamisch, Vakuum, höherdimensional) greifen aktuelle Debatten der Physik auf (z.B. Verlinde, AdS/CFT).
-* **Formelsammlung:** Gleichungen wie $T_{\mu\nu}^{QHS}$ und die Resonanzbedingung $\chi(\omega)$ bieten präzise, falsifizierbare Hypothesen.
+* **Formelsammlung:** Gleichungen wie $`T_{\mu\nu}^{QHS}`$ und die Resonanzbedingung $\chi(\omega)$ bieten präzise, falsifizierbare Hypothesen.
 * **Triple-Alpha-Analogie:** Die Metapher der Resonanz-Katalyse ist elegant und physikalisch plausibel.
 
 ### Experimentelle Ausrichtung
@@ -38,7 +38,7 @@ Das Projekt "Quanten-Vakuum-Resonanzforschung" ist ein bemerkenswerter Versuch, 
 
 ### Energiebilanz
 * **Problem:** Die Energieanforderungen für makroskopische Effekte sind enorm (bis zu 1 EW) und weit jenseits aktueller Technologien.
-* **Hawking-Instabilität:** Es fehlt eine quantitative Beschreibung, wie das QHS die Instabilität negativer Energiedichten, beschrieben durch $T_H$, überwindet.
+* **Hawking-Instabilität:** Es fehlt eine quantitative Beschreibung, wie das QHS die Instabilität negativer Energiedichten, beschrieben durch $`T_H`$, überwindet.
 
 ### Experimentelle Validierung
 * **Problem:** Die Verbindung zwischen den messbaren Signalen (Kraft, Magnetfeld) und einer tatsächlichen Metrik-Verzerrung bleibt hypothetisch.

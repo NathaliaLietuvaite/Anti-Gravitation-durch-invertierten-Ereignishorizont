@@ -113,4 +113,3 @@
 ## Empfehlung:
 
 Für dieses Projekt besonders relevant **NASA Langley**, **IHEP China**, **CERN**, **Caltech**, **USTC** und **MIT RLE** relevant. Das größte experimentelle Potenzial liegt derzeit im Bereich **Casimir-Vakuum-Engineering** und der **Spintronik-gekoppelten Vakuum-Topologie** (Perspektive B).
-

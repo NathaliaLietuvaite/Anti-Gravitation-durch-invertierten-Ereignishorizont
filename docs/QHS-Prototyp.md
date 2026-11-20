@@ -77,4 +77,3 @@ graph TD
 ## Fazit
 
 Das QHS-Prototypenmodell stellt den nächsten logischen Schritt dar, um die theoretischen Konzepte der Perspektive B (Vakuum als strukturierte Grundlage) in die experimentelle Realität zu überführen. Mit Hilfe moderner Spintronik und präziser Quantenmesstechnik entsteht hier der erste Engineering-Hebel zur kontrollierten Raumzeitmodifikation.
-

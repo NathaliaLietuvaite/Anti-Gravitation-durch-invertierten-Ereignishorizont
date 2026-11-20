@@ -1,6 +1,8 @@
 ## QRAD‑CE‑V2 – Acoustic Metamaterial Control Module for the Quantum‑Resonant Antigravitation Drive
 ### A Comparative Analysis and Engineering Recommendation for Near‑Earth Orbit Operations
 
+> **Revision `V2.0-AGH` (`WORK-ORDER-AGH-01`) — Scope Note (`REGISTER_T` / `REGISTER_I`):** Space-Time Acoustic Metasurfaces (STAM) connect directly to established **analog gravity** physics (Unruh acoustic event/white-hole horizons in flowing media, $`|v(x)| = c_s`$), simulated quantitatively in Phase 2 (`sim/analog_horizon_sim.py`). Acoustic radiation forces operate via real momentum transfer in a medium and do not alter Newtonian gravitational fields.
+
 **Reference:** QRAD‑CE‑V2  
 **Date:** 26 April 2026  
 **Authors:** Nathália Lietuvaite & the PQMS AI Research Collective  

@@ -115,4 +115,3 @@ Die Projektidee braucht *nicht unbedingt* ein eigenes Labor. Sie braucht:
 1. Eine theoretisch fokussierte, experimentell plausible Modellierung.
 2. Einen **sichtbaren Experimentvorschlag**, den Institute aufgreifen können.
 3. Eine strategische Partnerschaft, oder ein Paper, das die Neugier echter Forscher triggert.
-

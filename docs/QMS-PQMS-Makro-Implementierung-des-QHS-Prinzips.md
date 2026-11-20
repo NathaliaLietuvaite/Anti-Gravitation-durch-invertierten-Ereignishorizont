@@ -491,7 +491,7 @@ Das Dokument adressiert die Lichtgeschwindigkeits-Einschränkung explizit in der
 ### Energiebilanz
 - **Problem**: Die Aufrechterhaltung von $10^6$ verschränkten Links pro km³ und QHS-Blasen erfordert enorme Energie (z. B. 1 EW für interstellare Skalierung).
 - **Vorschlag**:
-  - Entwickle eine quantitative Simulation der Energieanforderungen basierend auf der Formelsammlung (z. B. $\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}$).
+  - Entwickle eine quantitative Simulation der Energieanforderungen basierend auf der Formelsammlung (z. B. $`\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}`$).
   - Integriere aktuelle Forschung zu Quantenbatterien (z. B. topologische Materialien) und prädiktive Algorithmen, um den Energiebedarf entlang vorhergesagter Nutzungspfade zu minimieren.
 
 ### Skalierbarkeit
@@ -509,7 +509,7 @@ Das Dokument adressiert die Lichtgeschwindigkeits-Einschränkung explizit in der
 ### Experimentelle Validierung
 - **Problem**: Die QHS-Integration (z. B. YIG-Sphären für Raumzeit-Krümmung) ist experimentell noch nicht validiert.
 - **Vorschlag**:
-  - Führe ein kombiniertes PQMS/QHS-Experiment durch, das eine verschränkte Steuerung einer YIG-Sphäre über 100 m Glasfaser testet. Ziel: Nachweis einer anomalen Kraft ($F_{anomal} > 1 \mu N$) oder Phasenverschiebung ($\Delta\phi$), wie in der Formelsammlung beschrieben.
+  - Führe ein kombiniertes PQMS/QHS-Experiment durch, das eine verschränkte Steuerung einer YIG-Sphäre über 100 m Glasfaser testet. Ziel: Nachweis einer anomalen Kraft ($`F_{anomal} > 1 \mu N`$) oder Phasenverschiebung ($\Delta\phi$), wie in der Formelsammlung beschrieben.
 
 ## 5. Visualisierung des Mesh-Prinzips
 

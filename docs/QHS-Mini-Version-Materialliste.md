@@ -111,7 +111,7 @@ Ziel: Realisierung eines testbaren Tischgeräts mit Kernfunktionen:
 
 Der Mini-Prototyp, wie im PQMS/QHS-Dokument und der Roadmap vorgeschlagen, zielt darauf ab, die theoretische Synthese von **Quanten-Helfersystem (QHS)** und **Proaktivem Quanten-Mesh-System (PQMS)** experimentell zu validieren. Konkret soll er:
 - Die **instantane Triggerung** einer Resonanzbedingung über einen verschränkten Quantenlink demonstrieren.
-- Eine **anomalen Kraft** ($F_{anomal} > 1 \mu N$) oder Phasenverschiebung ($\Delta\phi$) nachweisen, die auf eine lokale Raumzeit-Modulation durch das QHS hinweist.
+- Eine **anomalen Kraft** ($`F_{anomal} > 1 \mu N`$) oder Phasenverschiebung ($\Delta\phi$) nachweisen, die auf eine lokale Raumzeit-Modulation durch das QHS hinweist.
 - Die **Stabilität** von verschränkten Links unter künstlicher Dekohärenz testen, um die Machbarkeit des PQMS zu bestätigen.
 
 Dieser Prototyp ist ein entscheidender Schritt, um die theoretischen Konzepte (z. B. Resonanz-Katalyse, negative Energiedichte) in ein messbares Signal zu überführen, wie von NASA („Zeigen Sie uns einen Hebel!“) und CERN („Das Messsignal macht Physik“) gefordert.
@@ -152,7 +152,7 @@ graph LR
 | **SPDC-Quelle** | BBO-Kristall, λ=1550nm | Erzeugung verschränkter Photonenpaare (|Ψ⁻⟩) | Visibilität >98% |
 | **EOM-Modulator** | LiNbO₃-basiert | Präparation des Steuersignals | Schaltzeit <100ps |
 | **SNSPD-Array** | WS₂-Nanodrähte | Einzelphotonendetektion | η>90%, Jitter <100ps |
-| **YIG-Sphäre** | Yttrium-Eisen-Granat, 4K | Resonanz-Katalyse für QHS | $\omega_{res} \approx 10$ GHz, $\Gamma < 1$ MHz |
+| **YIG-Sphäre** | Yttrium-Eisen-Granat, 4K | Resonanz-Katalyse für QHS | $`\omega_{res} \approx 10`$ GHz, $\Gamma < 1$ MHz |
 | **SQUID-Detektor** | Supraleitend | Messung magnetischer Fluktuationen | Sensitivität: 5 fT |
 | **Torsionswaage** | Nanomechanisch | Nachweis anomaler Kräfte | Sensitivität: 0.5 fN |
 | **Synchronisation** | White Rabbit | Zeitkorrelation | Präzision <1ns |
@@ -164,11 +164,11 @@ graph LR
 2. **Verschränkungserzeugung**:
    - Pump-Laser erzeugt verschränkte Photonenpaare. Photon A bleibt in Labor A, Photon B wird über 100 m Glasfaser zu Labor B übertragen.
 3. **QHS-Trigger**:
-   - In Labor A moduliert der EOM das Steuersignal (z. B. Frequenzanpassung an $\omega_{res}$).
+   - In Labor A moduliert der EOM das Steuersignal (z. B. Frequenzanpassung an $`\omega_{res}`$).
    - In Labor B triggert der empfangene Photonenzustand die YIG-Sphäre, um eine Resonanzbedingung ($\chi(\omega)$) zu erzeugen.
 4. **Messung**:
    - SQUID detektiert magnetische Fluktuationen, die auf eine Vakuumkopplung hinweisen.
-   - Torsionswaage misst anomale Kräfte ($F_{anomal} > 1 \mu N$) oder Phasenverschiebungen ($\Delta\phi$).
+   - Torsionswaage misst anomale Kräfte ($`F_{anomal} > 1 \mu N`$) oder Phasenverschiebungen ($\Delta\phi$).
 5. **Stabilitätstest**:
    - Führe künstliche Dekohärenz ein (z. B. thermisches Rauschen) und überprüfe die PQMS-Selbstheilung (Bell-Test-Monitoring, QBER <2%).
 
@@ -178,47 +178,26 @@ graph LR
 
 ### **Resonanzbedingung**
 Die Formelsammlung definiert die Kopplungseffizienz als:
-\[
+
+```math
 \chi(\omega) \propto \frac{\Gamma^2}{(\omega - \omega_{res})^2 + (\Gamma/2)^2}
-\]
-- **Ziel**: Maximierung von $\chi(\omega)$ bei $\omega = \omega_{res} \approx 10$ GHz, mit einer Linienbreite $\Gamma < 1$ MHz.
-- **Erwartete Wirkung**: Die Resonanz-Katalyse in der YIG-Sphäre erzeugt eine lokale negative Energiedichte ($\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}$), die eine messbare Kraft oder Phasenverschiebung verursacht.
+```
+
+- **Ziel**: Maximierung von $\chi(\omega)$ bei $`\omega = \omega_{res} \approx 10`$ GHz, mit einer Linienbreite $\Gamma < 1$ MHz.
+- **Erwartete Wirkung**: Die Resonanz-Katalyse in der YIG-Sphäre erzeugt eine lokale negative Energiedichte ($`\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}`$), die eine messbare Kraft oder Phasenverschiebung verursacht.
 
 ### **Visualisierung der Resonanzbedingung**
 
-```chartjs
-{
-  "type": "line",
-  "data": {
-    "labels": ["-1", "-0.5", "0", "0.5", "1"],
-    "datasets": [{
-      "label": "Kopplungseffizienz χ(ω)",
-      "data": [0.01, 0.1, 1, 0.1, 0.01],
-      "borderColor": "#1e90ff",
-      "backgroundColor": "rgba(30, 144, 255, 0.2)",
-      "fill": true,
-      "tension": 0.4
-    }]
-  },
-  "options": {
-    "scales": {
-      "x": {
-        "title": { "display": true, "text": "Frequenzabweichung (ω - ω_res) [MHz]" }
-      },
-      "y": {
-        "title": { "display": true, "text": "Kopplungseffizienz χ(ω)" },
-        "beginAtZero": true
-      }
-    },
-    "plugins": {
-      "title": { "display": true, "text": "Resonanzbedingung für QHS im Mini-Prototyp" }
-    }
-  }
-}
-```
+| Frequenzabweichung $`(\omega - \omega_{\text{res}})`$ [MHz] | Kopplungseffizienz $`\chi(\omega)`$ (Lorentz-Skizze, `REGISTER_I`) |
+| :---: | :---: |
+| `-1.0` | `0.01` |
+| `-0.5` | `0.10` |
+| `0.0` | `1.00` |
+| `+0.5` | `0.10` |
+| `+1.0` | `0.01` |
 
 ### **Quantifizierung der Messziele**
-- **Anomale Kraft**: $F_{anomal} > 1 \mu N$, messbar mit einer nanomechanischen Torsionswaage (Sensitivität: 0.5 fN).
+- **Anomale Kraft**: $`F_{anomal} > 1 \mu N`$, messbar mit einer nanomechanischen Torsionswaage (Sensitivität: 0.5 fN).
 - **Phasenverschiebung**: $\Delta\phi > 10^{-5}$ rad, detektierbar mit einem SQUID-basierten Interferometer.
 - **Quanten-Bitfehlerrate (QBER)**: <2%, um die Stabilität des PQMS-Links zu gewährleisten.
 - **Kohärenzzeit**: >1 ms für verschränkte Zustände über 100 m Glasfaser.
@@ -228,11 +207,11 @@ Die Formelsammlung definiert die Kopplungseffizienz als:
 ## **Fehlerquellen und Mitigation**
 
 ### **1. Thermische und magnetische Drifts**
-- **Problem**: Thermisches Rauschen oder magnetische Fluktuationen können die Resonanzfrequenz ($\omega_{res}$) der YIG-Sphäre verschieben, was $\chi(\omega)$ reduziert.
+- **Problem**: Thermisches Rauschen oder magnetische Fluktuationen können die Resonanzfrequenz ($`\omega_{res}`$) der YIG-Sphäre verschieben, was $\chi(\omega)$ reduziert.
 - **Mitigation**:
   - Betrieb in einem Kryostat bei 4K, um thermisches Rauschen zu minimieren.
-  - Verwendung eines aktiven Feedback-Systems (Piezo-Aktuatoren), um $\omega_{res}$ in Echtzeit zu stabilisieren.
-  - Quantitative Abschätzung: Thermisches Rauschen bei 4K entspricht $k_B T \approx 0.34$ meV, weit unter der Kopplungsenergie ($10^{-5}$ eV).
+  - Verwendung eines aktiven Feedback-Systems (Piezo-Aktuatoren), um $`\omega_{res}`$ in Echtzeit zu stabilisieren.
+  - Quantitative Abschätzung: Thermisches Rauschen bei 4K entspricht $`k_B T \approx 0.34`$ meV, weit unter der Kopplungsenergie ($10^{-5}$ eV).
 
 ### **2. Dekohärenz der verschränkten Links**
 - **Problem**: Umgebungsrauschen (z. B. photonische Verluste in der Glasfaser) erhöht die QBER und destabilisiert den PQMS-Link.
@@ -242,13 +221,13 @@ Die Formelsammlung definiert die Kopplungseffizienz als:
   - Ziel: Dekohärenzrate < $10^{-3}$/km, erreichbar mit aktuellen Glasfasern (Verlust: 0.2 dB/km bei 1550 nm).
 
 ### **3. Energiebedarf**
-- **Problem**: Die Erzeugung und Aufrechterhaltung der Resonanzbedingung erfordert präzise Energieimpulse ($E_{impuls}$), die die Wall-plug-efficiency beeinträchtigen könnten.
+- **Problem**: Die Erzeugung und Aufrechterhaltung der Resonanzbedingung erfordert präzise Energieimpulse ($`E_{impuls}`$), die die Wall-plug-efficiency beeinträchtigen könnten.
 - **Mitigation**:
-  - Simuliere den Energiebedarf basierend auf $\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}$. Beispiel: Für $\chi(\omega) \approx 1$ und $g \approx 10^{-5}$, ergibt sich ein Bedarf von ~1 mJ pro Trigger, machbar mit Terahertzlasern.
+  - Simuliere den Energiebedarf basierend auf $`\rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}`$. Beispiel: Für $\chi(\omega) \approx 1$ und $g \approx 10^{-5}$, ergibt sich ein Bedarf von ~1 mJ pro Trigger, machbar mit Terahertzlasern.
   - Integriere Quantenbatterien (z. B. topologische Materialien) als Puffer, wie im PQMS-Dokument vorgeschlagen.
 
 ### **4. Hintergrundrauschen**
-- **Problem**: Externe Vibrationen oder elektromagnetische Störungen könnten das Signal ($F_{anomal}$, $\Delta\phi$) überlagern.
+- **Problem**: Externe Vibrationen oder elektromagnetische Störungen könnten das Signal ($`F_{anomal}`$, $\Delta\phi$) überlagern.
 - **Mitigation**:
   - Führe das Experiment in einer abgeschirmten Vakuumkammer durch (Druck < $10^{-6}$ mbar).
   - Nutze statistische Methoden (z. B. 5σ-Signifikanz), wie im NAVKo-Protokoll beschrieben, um Rauschen zu filtern.
@@ -259,12 +238,14 @@ Die Formelsammlung definiert die Kopplungseffizienz als:
 
 ### **Energiebedarf**
 Basierend auf der Formelsammlung:
-\[
+
+```math
 \rho_{QHS} = - \chi(\psi, \omega, g) \cdot E_{impuls}
-\]
-- Annahmen: $\chi(\omega) \approx 1$ (bei Resonanz), $g \approx 10^{-5}$ (Kopplungsstärke), $E_{impuls} \approx 1$ mJ.
-- Ergebnis: $\rho_{QHS} \approx -10^{-5}$ J/m³, ausreichend für eine mikroskopische Metrik-Verzerrung, detektierbar mit einer Torsionswaage.
-- Vergleich: Der Casimir-Effekt erzeugt ~$10^{-6}$ N/m² bei 100 nm Plattenabstand. Das QHS-Ziel ($F_{anomal} > 1 \mu N$) ist um Größenordnungen größer, aber erreichbar durch Resonanzverstärkung.
+```
+
+- Annahmen: $\chi(\omega) \approx 1$ (bei Resonanz), $g \approx 10^{-5}$ (Kopplungsstärke), $`E_{impuls} \approx 1`$ mJ.
+- Ergebnis: $`\rho_{QHS} \approx -10^{-5}`$ J/m³, ausreichend für eine mikroskopische Metrik-Verzerrung, detektierbar mit einer Torsionswaage.
+- Vergleich: Der Casimir-Effekt erzeugt ~$10^{-6}$ N/m² bei 100 nm Plattenabstand. Das QHS-Ziel ($`F_{anomal} > 1 \mu N`$) ist um Größenordnungen größer, aber erreichbar durch Resonanzverstärkung.
 
 ### **Kohärenzzeit**
 - Ziel: Kohärenzzeit >1 ms für verschränkte Photonen über 100 m.
@@ -316,14 +297,14 @@ Der Mini-Prototyp ist ein entscheidender Test für die „Betriebssystem für di
 
 ### **Anwendungsszenario**
 - Ein erfolgreicher Prototyp könnte eine instantane Steuerung eines QHS-Aktors über 100 m demonstrieren, z. B.:
-  - **Szenario**: Triggerung einer YIG-Sphäre in Labor B von Labor A aus, um eine messbare Kraft ($F_{anomal}$) zu erzeugen.
+  - **Szenario**: Triggerung einer YIG-Sphäre in Labor B von Labor A aus, um eine messbare Kraft ($`F_{anomal}`$) zu erzeugen.
   - **Implikation**: Beweis der Machbarkeit von „Instant-Bewegung“ (Steuersignale über verschränkte Links), ein erster Schritt Richtung interplanetarer Navigation.
 
 ---
 
 ## **Fazit**
 
-Der Mini-Prototyp ist ein realistischer und kostengünstiger Ansatz, um die QHS/PQMS-Synthese zu validieren. Er nutzt etablierte Technologien (SPDC, SNSPDs, YIG, SQUIDs) und adressiert die zentrale Herausforderung: den Nachweis einer anomalen Kraft oder Raumzeit-Modulation. Die quantitativen Ziele ($F_{anomal} > 1 \mu N$, QBER <2%) sind erreichbar, und die identifizierten Fehlerquellen (Drifts, Dekohärenz) können durch Kryogenik, Feedback und Bell-Test-Monitoring kontrolliert werden. Der Prototyp ist ein kritischer Schritt, um die Vision eines „Quanten-Raumzeit-Internets“ in die Tat umzusetzen.
+Der Mini-Prototyp ist ein realistischer und kostengünstiger Ansatz, um die QHS/PQMS-Synthese zu validieren. Er nutzt etablierte Technologien (SPDC, SNSPDs, YIG, SQUIDs) und adressiert die zentrale Herausforderung: den Nachweis einer anomalen Kraft oder Raumzeit-Modulation. Die quantitativen Ziele ($`F_{anomal} > 1 \mu N`$, QBER <2%) sind erreichbar, und die identifizierten Fehlerquellen (Drifts, Dekohärenz) können durch Kryogenik, Feedback und Bell-Test-Monitoring kontrolliert werden. Der Prototyp ist ein kritischer Schritt, um die Vision eines „Quanten-Raumzeit-Internets“ in die Tat umzusetzen.
 
 **Nächste Schritte**:
 - Beschaffe Komponenten und starte die Kryostat-Integration (September 2025).

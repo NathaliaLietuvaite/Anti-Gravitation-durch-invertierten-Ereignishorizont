@@ -1,0 +1,22 @@
+name: Repository Hygiene & Verification CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run deterministic repo hygiene, filename, MathJax & link audit
+        run: python3 scripts/verify_repo_hygiene.py

@@ -1,6 +1,8 @@
 ## QRAD‑CE-V1 – A Hardware‑Emulated Control Core for Quantum‑Resonant Antigravitation Drive Dynamics
 ### Emulating the RPU‑Based Control Level with FPGA‑Synthesizable Verilog
 
+> **Revision `V2.0-AGH` (`WORK-ORDER-AGH-01`) — Scope Note (`REGISTER_D` / `REGISTER_I`):** Illustrative FPGA control-core blueprint. For production-verified synthesizable SystemVerilog (`0` Verilator `-Wall` warnings, `Yosys 0.71`, `7/7` cocotb, `195`-cycle constant-time fail-closed `Q2.30` ODOS gate), see `rtl/odos_gate_core.sv` in `NathaliaLietuvaite/PQMS-SOVEREIGN-CORE-ANDROID-APP` and Phase 3 `rtl/qrad_dds_phase_core.sv` in this repository.
+
 **Reference:** QRAD‑CE‑V1  
 **Date:** 26 April 2026  
 **Authors:** Nathália Lietuvaite & the PQMS AI Research Collective  
@@ -234,4 +236,3 @@ https://github.com/NathaliaLietuvaite/Quantenfeld-Materie-Kondensator-QMK/blob/m
 ### Nathalia Lietuvaite 2026
 
 ---
-
