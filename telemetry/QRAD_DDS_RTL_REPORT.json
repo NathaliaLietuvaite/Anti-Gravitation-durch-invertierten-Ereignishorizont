@@ -1,0 +1,55 @@
+{
+  "schema": "AGH_M04_QRAD_DDS_RTL_REPORT_V1",
+  "epistemic_register": "REGISTER_M",
+  "module": "qrad_dds_phase_core",
+  "source_file": "rtl/qrad_dds_phase_core.sv",
+  "source_sha256": "67320e45f9179102ce695858c404e37ef69a52da54f4e34da2280c0df248d910",
+  "toolchains": {
+    "verilator": "Verilator 5.055 devel rev v5.054-321-gf84382c2b (mod)",
+    "yosys": "Yosys 0.71+52 (git sha1 e4a169b8f, Release, Clang /usr/bin/clang++ 21.1.8)",
+    "icarus_g2012_clean": true
+  },
+  "verilator_wall_warnings": 0,
+  "cocotb_tests_passed": 5,
+  "cocotb_tests_total": 5,
+  "yosys_coarse_rtl": {
+    "total_cells": 14,
+    "flip_flops": 3,
+    "combinational": 11,
+    "cells_by_type": {
+      "$add": 2,
+      "$adff": 2,
+      "$adffe": 1,
+      "$and": 1,
+      "$meminit": 1,
+      "$memrd_v2": 1,
+      "$mux": 4,
+      "$neg": 1,
+      "$sub": 1
+    }
+  },
+  "yosys_post_techmap_gates": {
+    "total_cells": 556,
+    "flip_flops": 47,
+    "combinational": 509,
+    "cells_by_type": {
+      "$_AND_": 142,
+      "$_DFFE_PN0P_": 32,
+      "$_DFF_PN0_": 14,
+      "$_DFF_PN1_": 1,
+      "$_MUX_": 21,
+      "$_NAND_": 118,
+      "$_NOR_": 17,
+      "$_NOT_": 27,
+      "$_OR_": 79,
+      "$_XOR_": 105
+    }
+  },
+  "verified_properties": {
+    "clock_mhz": 100.0,
+    "fundamental_frequency_mhz": 20.0,
+    "sfdr_db_gt_45": true,
+    "ab_180deg_inversion_max_err_lsb": 0,
+    "fail_closed_reset_and_ext_veto_clamp_cycles": 1
+  }
+}

@@ -37,7 +37,7 @@ def run_hygiene_audit(repo_root: str = REPO_ROOT) -> Dict[str, object]:
     total_files = 0
 
     for root, dirs, files in os.walk(repo_root):
-        dirs[:] = [d for d in sorted(dirs) if d != ".git"]
+        dirs[:] = [d for d in sorted(dirs) if d not in (".git", "__pycache__", "sim_build", ".pytest_cache")]
         for fn in sorted(files):
             total_files += 1
             full = os.path.join(root, fn)
@@ -61,7 +61,8 @@ def run_hygiene_audit(repo_root: str = REPO_ROOT) -> Dict[str, object]:
         if not os.path.isfile(os.path.join(repo_root, required)):
             errors.append(f"MISSING_REQUIRED_FILE: {required}")
 
-    readme_txt = open(os.path.join(repo_root, "README.md"), encoding="utf-8").read()
+    with open(os.path.join(repo_root, "README.md"), encoding="utf-8") as fh:
+        readme_txt = fh.read()
     for reg_tag in ("REGISTER_M", "REGISTER_D", "REGISTER_T", "REGISTER_I"):
         if reg_tag not in readme_txt:
             errors.append(f"README_MISSING_EPISTEMIC_REGISTER: {reg_tag}")
@@ -70,7 +71,8 @@ def run_hygiene_audit(repo_root: str = REPO_ROOT) -> Dict[str, object]:
     checked_links = 0
     for rel in md_files:
         full = os.path.join(repo_root, rel)
-        raw = open(full, "rb").read()
+        with open(full, "rb") as fh:
+            raw = fh.read()
         txt = raw.decode("utf-8")
 
         if rel in MODERNIZED_ROOT_SPECS:

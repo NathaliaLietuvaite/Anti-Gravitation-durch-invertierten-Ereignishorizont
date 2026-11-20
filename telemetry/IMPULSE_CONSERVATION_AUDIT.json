@@ -1,0 +1,37 @@
+{
+  "schema": "AGH_M03_IMPULSE_CONSERVATION_AUDIT_V1",
+  "epistemic_register": "REGISTER_T",
+  "tmfe_dimensional_bound": {
+    "criterion_id": "F-V3.1",
+    "circulating_power_w": 10000.0,
+    "cavity_length_m": 0.05,
+    "photon_transit_time_s": 1.6678e-10,
+    "stored_photonic_energy_j": 1.6678e-06,
+    "mass_equivalent_kg": 1.8557e-23,
+    "raw_dm_times_a_n": 1.8198e-19,
+    "closed_system_net_thrust_n": 0.0,
+    "claimed_target_force_n": 2.942e-06,
+    "shortfall_orders_of_magnitude": 13.21,
+    "verdict": "DIMENSIONAL_BOUND_EXCEEDED_AND_CLOSED_MOMENTUM_ZERO"
+  },
+  "real_momentum_mechanisms_10w": {
+    "input_power_w": 10.0,
+    "photon_thruster_emitted_n": 3.3356e-08,
+    "photon_thruster_n_per_w": 3.3356e-09,
+    "photon_mirror_reflected_n": 6.6713e-08,
+    "acoustic_radiation_force_air_n": 0.029155,
+    "acoustic_radiation_force_mg_equiv": 2972.93,
+    "acoustic_over_photon_ratio": 874030.5,
+    "momentum_conserved": true
+  },
+  "appendix_b_codata_calibration": {
+    "hbar_ev_s": 6.582119569e-16,
+    "hbar_c_ev_m": 1.97327e-07,
+    "e_proj_min_ev": 6.5821e-06,
+    "e_proj_max_ev": 0.00065821,
+    "scale_gap_min_factor": 1519000000000000.0,
+    "scale_gap_max_factor": 1.519e+20,
+    "old_v1_draft_grad_1e_10_L_1e21_ev": 19733.0,
+    "corrected_grad_for_1tev_at_hubble_m_inv": 1.1518e-08
+  }
+}

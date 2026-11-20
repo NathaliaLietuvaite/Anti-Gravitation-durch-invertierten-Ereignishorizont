@@ -66,22 +66,27 @@ All 17 historical 2025–2026 concept essays, formula notes, and early LLM evalu
 * [docs/Ethik.md](docs/Ethik.md) · [docs/Institute.md](docs/Institute.md) · [docs/Laborausstattung.md](docs/Laborausstattung.md)
 * [docs/Grok3-Evaluation-Quanten-Vakuum-Resonanzforschung.md](docs/Grok3-Evaluation-Quanten-Vakuum-Resonanzforschung.md) · [docs/Wissenschaftliche-Gesamtbewertung-des-Repositories.md](docs/Wissenschaftliche-Gesamtbewertung-des-Repositories.md)
 
-### Automation & Verification (`scripts/`, `.github/`)
+### Executable Scientific & Hardware Modules (`sim/`, `rtl/`, `data/`, `telemetry/`, `tests/`)
 
-* [scripts/verify_repo_hygiene.py](scripts/verify_repo_hygiene.py) — Deterministic audit enforcing Windows-safe filenames, zero GFM MathJax errors, zero unsupported `chartjs` fences, zero dead relative links, and control-character cleanliness.
-* [.github/workflows/ci.yml](.github/workflows/ci.yml) — Automated GitHub Actions CI running on every push and pull request to `main`.
+| Module | Path | Register | Verified Output / Key Metric |
+| :--- | :--- | :---: | :--- |
+| **M-01 · IceCube × Cold Spot** | [sim/neutrino_coldspot_audit.py](sim/neutrino_coldspot_audit.py) + [data/IceCube_Gold_Bronze_Tracks.csv](data/IceCube_Gold_Bronze_Tracks.csv) | `M / T` | Official **IceCat-1** (`doi:10.7910/DVN/SCRUCD`, `348` tracks / `126` Gold, `54 TeV–20.31 PeV`, SHA-256 `7d5013db...`): **`0` events within `5 deg`** (`p = 1.000`), `2` within `10 deg` (`p = 0.229`), **`0` Gold within `15 deg`** (`p = 1.000`) over `N = 10,000` declination-preserving RA scrambles → **`CONSISTENT_WITH_ISOTROPIC_RA_NULL_NO_COLDSPOT_EXCESS`** ([NEUTRINO_COLDSPOT_AUDIT.json](telemetry/NEUTRINO_COLDSPOT_AUDIT.json)). |
+| **M-02 · Analog Horizon Sim** | [sim/analog_horizon_sim.py](sim/analog_horizon_sim.py) | `T` | Unruh (1981) RK4 acoustic geodesic & WKB eikonal integrator: black-hole horizon traps/redshifts (`k/k_0 = 0.383`), while **inverted (white-hole) horizon** stalls rays at `|x| = 0.005 m` with **`18.58x` blueshift pile-up** ([ANALOG_HORIZON_REPORT.json](telemetry/ANALOG_HORIZON_REPORT.json)). |
+| **M-03 · Conservation & Force Audit** | [sim/impulse_conservation_audit.py](sim/impulse_conservation_audit.py) | `T` | Proves `13.21`-order-of-magnitude shortfall & `0.0 N` closed-system thrust for TMFE `F-V3.1`, vs. real momentum-conserving forces at `10 W`: photon thruster `33.36 nN` (`3.336 nN/W`) and air acoustic radiation force `29.16 mN` (`2,972.9 mg`-equiv, `874,030x` stronger) ([IMPULSE_CONSERVATION_AUDIT.json](telemetry/IMPULSE_CONSERVATION_AUDIT.json)). |
+| **M-04 · Synthesizable 20 MHz DDS RTL** | [rtl/qrad_dds_phase_core.sv](rtl/qrad_dds_phase_core.sv) + [rtl/test_qrad_dds_cocotb.py](rtl/test_qrad_dds_cocotb.py) + [rtl/run_rtl_audit.py](rtl/run_rtl_audit.py) | `D / M` | **`0` Verilator 5.055 `-Wall` warnings**, clean `Icarus -g2012`, **`5/5` `cocotb 2.1.0` tests PASS** (`20.000 MHz` FFT peak `SFDR > 45 dB`, exact **`0 LSB`** `0/180 deg` phase inversion, `1`-cycle fail-closed veto clamp), **`Yosys 0.71`**: `14` coarse cells → **`556` gates (`47` FFs incl. `$_DFF_PN1_` active-high reset veto)** ([QRAD_DDS_RTL_REPORT.json](telemetry/QRAD_DDS_RTL_REPORT.json)). |
+| **Hygiene & Unit-Test Suite** | [scripts/verify_repo_hygiene.py](scripts/verify_repo_hygiene.py) + [tests/test_agh_modules.py](tests/test_agh_modules.py) + [.github/workflows/ci.yml](.github/workflows/ci.yml) | `M / T` | Enforces Windows-safe filenames, `0` GFM MathJax errors, `0` dead relative links, and runs `7/7` automated unit tests (`6/7` portable + `1` EDA skipUnless in cloud CI). |
 
 ---
 
 ## Falsification & Audit Ledger (`Revision V2.0-AGH`)
 
-| ID | Statement / Hypothesis | Register | Current Audit Status |
+| ID | Statement / Hypothesis | Register | Current Empirical / Analytical Verdict |
 | :--- | :--- | :---: | :--- |
-| **F-V3.1** | Cavity $`E/c^2`$ mass fluctuation yields `> 0.3 mg` propellantless thrust | `T / I` | **`DIMENSIONAL_BOUND_EXCEEDED`** (`~13` orders of magnitude shortfall + momentum conservation $`\sum \vec{F}_{\text{int}} = 0`$; automated check in Phase 2 `M-03`) |
-| **F-B.2** | IceCube TeV–PeV neutrino arrival directions correlate with Eridanus CMB Cold Spot (`l = 209 deg, b = -57 deg`) | `M / T` | **`QUEUED_PHASE2_TEST`** (reproducible Monte-Carlo catalog audit `sim/neutrino_coldspot_audit.py` in Phase 2 `M-01`) |
-| **F-B.1** | High-energy astrophysical neutrino spectrum exhibits upper cut-off near $`10^{16}\text{ eV}`$ | `M / D` | **`OPEN_OBSERVATIONAL`** (long-term IceCube-Gen2 / KM3NeT domain) |
-| **F-V2.1** | Flowing acoustic / optical metamaterial exhibits inverted (white-hole) analog horizon kinematics at $`|v(x)| = c_s`$ | `T` | **`ANALOG_GRAVITY_SCOPE`** (established Unruh 1981 kinematics; numerical wave-packet simulator `sim/analog_horizon_sim.py` in Phase 2 `M-02`) |
-| **F-V1.1** | Synthesizable `20 MHz` quarter-wave sine DDS with `0 deg / 180 deg` phase toggle and fail-closed interlock | `D / M` | **`QUEUED_PHASE3_RTL`** (clean IEEE 1800-2017 `rtl/qrad_dds_phase_core.sv` verified via `Verilator 5.055`, `Yosys 0.71`, `cocotb 2.1.0` in Phase 3 `M-04`) |
+| **F-V3.1** | Cavity $`E/c^2`$ mass fluctuation yields `> 0.3 mg` propellantless thrust | `T / I` | **`FALSIFIED_BY_DIMENSIONAL_AND_CONSERVATION_BOUNDS`** (`13.21` orders of magnitude shortfall + $`\sum \vec{F}_{\text{int}} = 0`$; see [IMPULSE_CONSERVATION_AUDIT.json](telemetry/IMPULSE_CONSERVATION_AUDIT.json)) |
+| **F-B.2** | IceCube TeV–PeV neutrino arrival directions correlate with Eridanus CMB Cold Spot (`l = 207.8 deg, b = -56.3 deg`) | `M / T` | **`TESTED_NULL_IN_ICECAT1`** (`0` events within `5 deg` `p = 1.000`, `2` within `10 deg` `p = 0.229`, `0` Gold within `15 deg` `p = 1.000`, `N = 10,000` RA scrambles; see [NEUTRINO_COLDSPOT_AUDIT.json](telemetry/NEUTRINO_COLDSPOT_AUDIT.json)) |
+| **F-B.1** | High-energy astrophysical neutrino spectrum exhibits upper cut-off near $`10^{16}\text{ eV}`$ | `M / D` | **`OPEN_OBSERVATIONAL`** (IceCat-1 max event `20.31 PeV`; long-term IceCube-Gen2 / KM3NeT domain) |
+| **F-V2.1** | Flowing acoustic / optical metamaterial exhibits inverted (white-hole) analog horizon kinematics at $`|v(x)| = c_s`$ | `T` | **`ANALOG_VERIFIED`** (established Unruh 1981 kinematics reproduced numerically with `18.58x` blueshift pile-up; see [ANALOG_HORIZON_REPORT.json](telemetry/ANALOG_HORIZON_REPORT.json)) |
+| **F-V1.1** | Synthesizable `20 MHz` quarter-wave sine DDS with `0 deg / 180 deg` phase toggle and fail-closed interlock | `D / M` | **`VERIFIED_4_EDA_TOOLCHAINS`** (`0` Verilator `-Wall` warnings, `Icarus -g2012` clean, `5/5` cocotb, `556` Yosys 0.71 gates / `47` FFs; see [QRAD_DDS_RTL_REPORT.json](telemetry/QRAD_DDS_RTL_REPORT.json)) |
 
 ---
 
@@ -93,15 +98,16 @@ All 17 historical 2025–2026 concept essays, formula notes, and early LLM evalu
   * Extracted standalone [QRAD-CE-V4-Appendix-B.md](QRAD-CE-V4-Appendix-B.md) and corrected CODATA dimensional errors ($`\hbar = 6.582 \times 10^{-16}\text{ eV}\cdot\text{s}`$, $`\hbar c = 1.973 \times 10^{-7}\text{ eV}\cdot\text{m}`$, scale gap $`10^{15}\text{–}10^{20}`$) plus removed unverified 2026 Nobel claims.
   * Migrated `> 215` GitHub-incompatible LaTeX delimiters (`\(...\)` / `\[...\]`) to GFM-safe syntax and replaced `2` non-rendering `chartjs` blocks with native Markdown tables.
   * Added root MIT [LICENSE](LICENSE), automated hygiene checker [scripts/verify_repo_hygiene.py](scripts/verify_repo_hygiene.py), and GitHub Actions CI [.github/workflows/ci.yml](.github/workflows/ci.yml).
-* [ ] **Phase 2 (`WORK-ORDER-AGH-02` — Executable Scientific Simulation Suite `M-01`–`M-03`):**
-  * `M-01`: `sim/neutrino_coldspot_audit.py` — Reproducible IceCube TeV–PeV × Planck CMB Cold Spot directional cross-correlation (`N = 10,000` isotropic Monte-Carlo null rotations).
-  * `M-02`: `sim/analog_horizon_sim.py` — Numerical black-hole vs. inverted (white-hole) acoustic analog-horizon wave/geodesic simulator (Unruh metric).
-  * `M-03`: `sim/impulse_conservation_audit.py` — Exact SI conservation & dimensional audit comparing photon radiation pressure ($`F = P/c`$), acoustic radiation force (Gorkov potential), and TMFE $`E/c^2`$ bounds.
-* [ ] **Phase 3 (`WORK-ORDER-AGH-03` — Synthesizable FPGA Signal Core `M-04`):**
-  * `M-04`: `rtl/qrad_dds_phase_core.sv` — Synthesizable `20 MHz @ 100 MHz` quarter-wave sine DDS with exact `0x00000000 / 0x80000000` phase toggle and fail-closed interlock, verified cleanly with `Verilator 5.055`, `Icarus -g2012`, `cocotb 2.1.0`, and `Yosys 0.71`.
+* [x] **Phase 2 (`WORK-ORDER-AGH-02` — Executable Scientific Simulation Suite `M-01`–`M-03`):**
+  * `M-01`: [sim/neutrino_coldspot_audit.py](sim/neutrino_coldspot_audit.py) — Reproducible IceCube IceCat-1 (`348` events, `doi:10.7910/DVN/SCRUCD`) × Planck CMB Cold Spot directional cross-correlation (`N = 10,000` RA scrambles).
+  * `M-02`: [sim/analog_horizon_sim.py](sim/analog_horizon_sim.py) — Numerical black-hole vs. inverted (white-hole) acoustic analog-horizon wave/geodesic simulator (Unruh metric).
+  * `M-03`: [sim/impulse_conservation_audit.py](sim/impulse_conservation_audit.py) — Exact SI conservation & dimensional audit comparing photon radiation pressure ($`F = P/c`$), acoustic radiation force, and TMFE $`E/c^2`$ bounds.
+* [x] **Phase 3 (`WORK-ORDER-AGH-03` — Synthesizable FPGA Signal Core `M-04`):**
+  * `M-04`: [rtl/qrad_dds_phase_core.sv](rtl/qrad_dds_phase_core.sv) — Synthesizable `20 MHz @ 100 MHz` quarter-wave sine DDS with exact `0x00000000 / 0x80000000` `0-LSB` phase toggle and fail-closed interlock, verified cleanly with `Verilator 5.055`, `Icarus -g2012`, `cocotb 2.1.0` (`5/5`), and `Yosys 0.71` (`556` gates / `47` FFs).
 
-### Run Automated Hygiene Audit Locally
+### Run Verification Locally
 
 ```bash
 python3 scripts/verify_repo_hygiene.py
+PYTHONPATH=. python3 -m unittest discover -s tests -v
 ```

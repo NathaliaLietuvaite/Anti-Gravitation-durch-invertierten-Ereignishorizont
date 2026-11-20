@@ -1,0 +1,7 @@
+__pycache__/
+*.py[cod]
+rtl/sim_build/
+rtl/results.xml
+rtl/*.vcd
+rtl/*.out
+.pytest_cache/

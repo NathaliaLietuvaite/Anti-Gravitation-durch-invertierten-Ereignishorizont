@@ -1,0 +1,123 @@
+{
+  "schema": "AGH_M01_NEUTRINO_COLDSPOT_AUDIT_V1",
+  "epistemic_register": "REGISTER_M",
+  "criterion_id": "F-B.2",
+  "catalog_provenance": {
+    "name": "IceCube Event Catalog of Alert Tracks (IceCat-1, 2011-2023)",
+    "doi": "10.7910/DVN/SCRUCD",
+    "file": "IceCube_Gold_Bronze_Tracks.csv",
+    "sha256": "7d5013db3f210004b58414badcac739fc4bf6f90c5b5a495347f8a9080767e15",
+    "matches_expected_sha256": true,
+    "total_events": 348,
+    "gold_events": 126,
+    "energy_min_tev": 54.0,
+    "energy_median_tev": 151.5,
+    "energy_max_tev": 20310.0
+  },
+  "cold_spot_target": {
+    "reference": "Cruz et al. 2005; Planck Collaboration 2013 (Eridanus Cold Spot)",
+    "galactic_l_deg": 207.8,
+    "galactic_b_deg": -56.3,
+    "j2000_ra_deg": 48.7708,
+    "j2000_dec_deg": -19.5839
+  },
+  "null_methodology": {
+    "method": "Declination-preserving Right-Ascension scrambling (exact IceCube A_eff(Dec) invariance)",
+    "n_monte_carlo_trials": 10000,
+    "seed": 20261120
+  },
+  "all_events_results": {
+    "radius_5deg": {
+      "radius_deg": 5.0,
+      "observed_events": 0,
+      "null_expected_mean": 0.2182,
+      "p_value_excess_one_sided": 1.0,
+      "statistically_significant_p_lt_001": false
+    },
+    "radius_10deg": {
+      "radius_deg": 10.0,
+      "observed_events": 2,
+      "null_expected_mean": 0.9119,
+      "p_value_excess_one_sided": 0.228677,
+      "statistically_significant_p_lt_001": false
+    },
+    "radius_15deg": {
+      "radius_deg": 15.0,
+      "observed_events": 2,
+      "null_expected_mean": 1.9271,
+      "p_value_excess_one_sided": 0.583642,
+      "statistically_significant_p_lt_001": false
+    }
+  },
+  "gold_only_results": {
+    "radius_5deg": {
+      "radius_deg": 5.0,
+      "observed_events": 0,
+      "null_expected_mean": 0.0897,
+      "p_value_excess_one_sided": 1.0,
+      "statistically_significant_p_lt_001": false
+    },
+    "radius_10deg": {
+      "radius_deg": 10.0,
+      "observed_events": 0,
+      "null_expected_mean": 0.4593,
+      "p_value_excess_one_sided": 1.0,
+      "statistically_significant_p_lt_001": false
+    },
+    "radius_15deg": {
+      "radius_deg": 15.0,
+      "observed_events": 0,
+      "null_expected_mean": 1.1253,
+      "p_value_excess_one_sided": 1.0,
+      "statistically_significant_p_lt_001": false
+    }
+  },
+  "nearest_5_events_to_cold_spot": [
+    {
+      "name": "IC130208A",
+      "i3_type": "gfu-bronze",
+      "ra_deg": 48.38,
+      "dec_deg": -13.32,
+      "energy_tev": 2268.0,
+      "signal_prob": 0.317,
+      "angular_sep_deg": 6.2751
+    },
+    {
+      "name": "IC120611A",
+      "i3_type": "gfu-bronze",
+      "ra_deg": 39.95,
+      "dec_deg": -15.09,
+      "energy_tev": 9220.0,
+      "signal_prob": 0.244,
+      "angular_sep_deg": 9.5411
+    },
+    {
+      "name": "IC220524A",
+      "i3_type": "gfu-bronze",
+      "ra_deg": 47.2,
+      "dec_deg": -3.28,
+      "energy_tev": 116.0,
+      "signal_prob": 0.336,
+      "angular_sep_deg": 16.3759
+    },
+    {
+      "name": "IC150918A",
+      "i3_type": "gfu-bronze",
+      "ra_deg": 49.83,
+      "dec_deg": -2.95,
+      "energy_tev": 105.0,
+      "signal_prob": 0.28,
+      "angular_sep_deg": 16.666
+    },
+    {
+      "name": "IC210717A",
+      "i3_type": "hese-bronze",
+      "ra_deg": 46.49,
+      "dec_deg": -1.34,
+      "energy_tev": 127.0,
+      "signal_prob": 0.39,
+      "angular_sep_deg": 18.38
+    }
+  ],
+  "empirical_verdict": "CONSISTENT_WITH_ISOTROPIC_RA_NULL_NO_COLDSPOT_EXCESS"
+}

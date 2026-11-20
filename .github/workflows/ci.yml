@@ -1,4 +1,4 @@
-name: Repository Hygiene & Verification CI
+name: Repository Hygiene, Physics Simulations & Portable RTL Audit CI
 
 on:
   push:
@@ -18,5 +18,13 @@ jobs:
         with:
           python-version: '3.11'
 
+      - name: Install numerical dependencies
+        run: python3 -m pip install -q numpy
+
       - name: Run deterministic repo hygiene, filename, MathJax & link audit
         run: python3 scripts/verify_repo_hygiene.py
+
+      - name: Run unit tests (M-01 IceCat-1 Cold Spot, M-02 Analog Horizon, M-03 Impulse Audit, M-04 Sealed RTL)
+        env:
+          PYTHONPATH: .
+        run: python3 -m unittest discover -s tests -v

@@ -1,0 +1,156 @@
+{
+  "schema": "AGH_M02_ANALOG_HORIZON_REPORT_V1",
+  "epistemic_register": "REGISTER_T",
+  "physical_scope": "Unruh (1981) acoustic analog-gravity metric ds^2 = -(c_s^2 - v^2)dt^2 - 2v dxdt + dx^2. Models exact horizon kinematics (trapping vs. inverted white-hole repulsion/blueshift) without claiming modification of Newtonian gravitational fields.",
+  "channel_parameters": {
+    "c_s_m_s": 1.0,
+    "dv_m_s": 0.5,
+    "width_l_m": 0.25
+  },
+  "black_hole_horizon": {
+    "surface_gravity_kappa_s_inv": 2.0,
+    "ray_outside_subsonic": {
+      "x0_m": 0.1,
+      "x_final_m": 0.701759,
+      "delta_x_m": 0.601759,
+      "log_wavenumber_shift": -0.9604,
+      "wavenumber_ratio_k_over_k0": 0.38273,
+      "spectral_behavior": "REDSHIFT_ESCAPE",
+      "sample_t": [
+        0.0,
+        0.07,
+        0.14,
+        0.21,
+        0.28,
+        0.35,
+        1.4,
+        1.47,
+        1.5
+      ],
+      "sample_x": [
+        0.1,
+        0.114115,
+        0.12994,
+        0.147568,
+        0.167059,
+        0.188433,
+        0.652204,
+        0.686875,
+        0.701759
+      ]
+    },
+    "ray_inside_supersonic_trapped": {
+      "x0_m": -0.1,
+      "x_final_m": -0.701759,
+      "delta_x_m": -0.601759,
+      "log_wavenumber_shift": -0.9604,
+      "wavenumber_ratio_k_over_k0": 0.38273,
+      "spectral_behavior": "REDSHIFT_ESCAPE",
+      "sample_t": [
+        0.0,
+        0.07,
+        0.14,
+        0.21,
+        0.28,
+        0.35,
+        1.4,
+        1.47,
+        1.5
+      ],
+      "sample_x": [
+        -0.1,
+        -0.114115,
+        -0.12994,
+        -0.147568,
+        -0.167059,
+        -0.188433,
+        -0.652204,
+        -0.686875,
+        -0.701759
+      ]
+    }
+  },
+  "inverted_white_hole_horizon": {
+    "surface_gravity_kappa_s_inv": -2.0,
+    "ray_from_subsonic_repelled": {
+      "x0_m": -0.1,
+      "x_final_m": -0.005112,
+      "delta_x_m": 0.094888,
+      "log_wavenumber_shift": 2.9223,
+      "wavenumber_ratio_k_over_k0": 18.583,
+      "spectral_behavior": "BLUESHIFT_PILEUP",
+      "sample_t": [
+        0.0,
+        0.07,
+        0.14,
+        0.21,
+        0.28,
+        0.35,
+        1.4,
+        1.47,
+        1.5
+      ],
+      "sample_x": [
+        -0.1,
+        -0.087477,
+        -0.076415,
+        -0.066678,
+        -0.058131,
+        -0.050646,
+        -0.006244,
+        -0.005428,
+        -0.005112
+      ]
+    },
+    "ray_from_supersonic_stalled": {
+      "x0_m": 0.1,
+      "x_final_m": 0.005112,
+      "delta_x_m": -0.094888,
+      "log_wavenumber_shift": 2.9223,
+      "wavenumber_ratio_k_over_k0": 18.583,
+      "spectral_behavior": "BLUESHIFT_PILEUP",
+      "sample_t": [
+        0.0,
+        0.07,
+        0.14,
+        0.21,
+        0.28,
+        0.35,
+        1.4,
+        1.47,
+        1.5
+      ],
+      "sample_x": [
+        0.1,
+        0.087477,
+        0.076415,
+        0.066678,
+        0.058131,
+        0.050646,
+        0.006244,
+        0.005428,
+        0.005112
+      ]
+    }
+  },
+  "physical_analog_regimes": [
+    {
+      "regime": "Rubidium_87_BEC_Steinhauer_Scale",
+      "sound_speed_m_s": 0.002,
+      "surface_gravity_kappa_s_inv": 666.6667,
+      "analog_hawking_temp_k": 8.1044e-10
+    },
+    {
+      "regime": "Water_Flume_Weinfurtner_Scale",
+      "sound_speed_m_s": 0.5,
+      "surface_gravity_kappa_s_inv": 5.0,
+      "analog_hawking_temp_k": 6.0783e-12
+    },
+    {
+      "regime": "Air_Ultrasonic_STAM_40kHz_Scale",
+      "sound_speed_m_s": 343.0,
+      "surface_gravity_kappa_s_inv": 10000.0,
+      "analog_hawking_temp_k": 1.2157e-08
+    }
+  ]
+}
